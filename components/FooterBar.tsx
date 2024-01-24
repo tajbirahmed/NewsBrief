@@ -68,7 +68,7 @@ const FooterBar = () => {
                     left: 30, 
                   }}
                 >
-                  <Icon name='home' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                  <Icon name='home' type='material' color='white' />
                 </View>
                 <Text
                   style={{
@@ -125,7 +125,7 @@ const FooterBar = () => {
                     left: 30,
                   }}
                 >
-                  <Icon name='explore' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                  <Icon name='explore' type='material' color='white' />
                 </View>
                 <Text
                   style={{
@@ -182,7 +182,7 @@ const FooterBar = () => {
                     left: 30,
                   }}
                 >
-                  <Icon name='favorite' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                  <Icon name='favorite' type='material' color='white' />
                 </View>
                 <Text
                   style={{
@@ -214,14 +214,14 @@ const FooterBar = () => {
             flex: 1,
             justifyContent: 'center',
           }}>
-            { selected !== 'bookmark' ? (<><Icon name='bookmark' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+            {selected !== 'bookmark' ? (<><Icon name='newspaper-o' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />
               <Text
                 style={{
                   color: colorScheme === 'dark' ? 'white' : 'black',
                   alignSelf: 'center',
                   fontSize: 10,
                 }}
-              >Bookmarks
+              >News Stand
               </Text></>) : (<>
                 <View
                   style={{
@@ -236,10 +236,10 @@ const FooterBar = () => {
                     marginBottom: 10,
                     position: 'absolute', 
                     top: -3, 
-                    left: 30, 
+                    left: 27, 
                   }}
                 >
-                  <Icon name='bookmark' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                  <Icon name='newspaper-o' type='font-awesome' color='white' />
                 </View>
                 <Text
                   style={{
@@ -249,7 +249,7 @@ const FooterBar = () => {
                     textAlign: 'center',
                     fontWeight: '800',
                   }}
-                >Bookmarks</Text>
+                >News Stand</Text>
               </>)
             }
           </TouchableOpacity>

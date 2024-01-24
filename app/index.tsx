@@ -11,9 +11,7 @@ const Home = () => {
 			height: 'auto',
 			backgroundColor: colorScheme === 'dark' ? 'black' : 'white', 
 		}}>
-			<Link href="/test/">
-				Cick
-			</Link>
+			
 		</View>
 	)
 }
