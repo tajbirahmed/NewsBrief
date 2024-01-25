@@ -1,13 +1,12 @@
 // For Theming
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Button, DrawerLayoutAndroid, ScrollView, StatusBar, TouchableOpacity, useColorScheme } from 'react-native';
+import { DrawerLayoutAndroid, ScrollView, StatusBar, TouchableOpacity, useColorScheme } from 'react-native';
 import HeaderBar from '@/components/HeaderBar';
 import { Slot } from 'expo-router';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { View, Text } from 'react-native';
 import FooterBar from '@/components/FooterBar';
 import { Icon } from '@rneui/base';
-
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -48,7 +47,7 @@ const RootLayout = () => {
                 }}
             >   
                 
-                    
+                
                 <TouchableOpacity>
                     <View style={{
                         flex: 1,
@@ -62,12 +61,12 @@ const RootLayout = () => {
                                 fontSize: 18,
                                 paddingLeft: 25, 
                                 marginBottom: 25,
+                                color: colorScheme === 'dark' ? 'white' : 'black', 
                                 }}
                             >   Settings
                         </Text>
                     </View>
                 </TouchableOpacity>
-                
                 <TouchableOpacity>
                     <View style={{
                         flex: 1,
@@ -81,12 +80,12 @@ const RootLayout = () => {
                                 fontSize: 18,
                                 paddingLeft: 25,
                                 marginBottom: 25,
+                                color: colorScheme === 'dark' ? 'white' : 'black', 
                             }}
                         >   Manage Account
                         </Text>
                     </View>
                 </TouchableOpacity>
-
                 <TouchableOpacity>
                     <View style={{
                         flex: 1,
@@ -100,6 +99,7 @@ const RootLayout = () => {
                                 fontSize: 18,
                                 paddingLeft: 25,
                                 marginBottom: 25,
+                                color: colorScheme === 'dark' ? 'white' : 'black', 
                             }}
                         >   Help Center
                         </Text>

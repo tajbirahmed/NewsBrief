@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Text, Touchable, TouchableOpacity, View, useColorScheme } from 'react-native'
 
 const FooterBar = () => {
-  const [selected, setSelected] = useState('home');
+  const [selected, setSelected] = useState('');
   const colorScheme = useColorScheme(); 
   return (
     <View
