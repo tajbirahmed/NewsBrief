@@ -1,4 +1,5 @@
 import { Icon } from '@rneui/base';
+import { router } from 'expo-router';
 import React, { useState } from 'react'
 import { Text, Touchable, TouchableOpacity, View, useColorScheme } from 'react-native'
 
@@ -36,7 +37,7 @@ const FooterBar = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => { setSelected('home')}}
+            onPress={() => { setSelected('home'); router.replace('/')}}
             style={{
             padding: 4, 
             paddingTop: 6, 
@@ -207,7 +208,7 @@ const FooterBar = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => { setSelected('bookmark') }}
+            onPress={() => { setSelected('bookmark'), router.replace('/NewsStand') }}
             style={{
             padding: 4,
             paddingTop: 6,

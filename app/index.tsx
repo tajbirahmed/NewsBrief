@@ -1,5 +1,6 @@
 import Category from '@/components/Category'
-import NewsCard from '@/components/NewsCardSlider'
+import NewsCard from '@/components/NewsCard'
+import NewsCardSlider from '@/components/NewsCardSlider'
 import newsCategories from '@/constants/NewsCategories'
 import newsTestData from '@/constants/NewsExamples'
 import React, { useState} from 'react'
@@ -41,7 +42,7 @@ const Home = () => {
 				}}
 			>
 				{newsTestData.map((value, i) => (
-					<NewsCard
+					<NewsCardSlider
 						key={i}
 						source={value.source}
 						author={value.author}
