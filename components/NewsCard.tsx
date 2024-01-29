@@ -60,22 +60,23 @@ const NewsCard = ({ title, illustration }: ItemProps) => {
         <Image
           style={{
             flex: 1,
-            borderRadius: 8,
+            borderRadius: 20,
           }}
           source={{ uri: item.illustration }}
         />
-        <Text
-          numberOfLines={1}
-          ellipsizeMode="tail"
-          style={{
-            fontSize: 20,
-            fontWeight: '400',
-            color: colorScheme === 'dark' ? 'white' : 'black',
-            overflow: 'hidden',
-          }}
-        >
-          {item.title}
-        </Text>
+          
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{
+              fontSize: 20,
+              fontWeight: '400',
+              color: colorScheme === 'dark' ? 'white' : 'black',
+              overflow: 'hidden',
+            }}
+          >
+            {item.title}
+            </Text>
       </View>
     );
   };
@@ -89,17 +90,17 @@ const NewsCard = ({ title, illustration }: ItemProps) => {
       }}
     >
       <TouchableOpacity>
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-        <Carousel
-          layout="default"
-          ref={ref}  
-            
-          data={carouselItems}
-          sliderWidth={300}
-          itemWidth={ScreenWidth}
-          renderItem={renderItem}
-          onSnapToItem={(index: number) => setActiveIndex(index)}
-        />
+        <View style={{ width: '100%', height: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+          <Carousel
+            layout="default"
+            ref={ref}  
+              
+            data={carouselItems}
+            sliderWidth={300}
+            itemWidth={ScreenWidth}
+            renderItem={renderItem}
+            onSnapToItem={(index: number) => setActiveIndex(index)}
+          />
         </View>
       </TouchableOpacity>
     </SafeAreaView>

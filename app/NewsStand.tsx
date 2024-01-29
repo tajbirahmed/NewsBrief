@@ -1,33 +1,28 @@
+import NewsSourceStand from '@/components/NewsSourceStand';
+import NewsStandSlider from '@/components/NewsStandSlider';
+import categories from '@/constants/NewsCategorisWithExample';
 import React from 'react'
-import { ScrollView, View, Text } from 'react-native'
+import { ScrollView, View, Text, StyleSheet } from 'react-native'
 
 const NewsStand = () => {
-  return (
-    <ScrollView
-      style={{
-        flex: 1,  
-        overflow: 'scroll', 
-        padding: 8, 
-      }}
-    >
-      <View
-        style={{
-          paddingTop: 2, 
-        }}
-      >
-        <Text>Category</Text>
-        <ScrollView
-          style={{
-            flexDirection: 'row', 
-            overflow: 'scroll', 
-            height: '20%',
-          }}
-        >
-          <NewsStandCard />
+    return (
+        <ScrollView contentContainerStyle={ styles.container }>
+            {categories.map((value, index) => (
+                <NewsStandSlider
+                    key={index}
+                    categoryName={value.categoryName}
+                    child={value.child}
+                />
+            ))}
         </ScrollView>
-      </View>
-    </ScrollView>
-  )
+    )
 }
 
-export default NewsStand
+export default NewsStand; 
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        overflow: 'scroll', 
+    }
+})

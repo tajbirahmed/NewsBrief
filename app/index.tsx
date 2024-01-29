@@ -5,7 +5,7 @@ import newsCategories from '@/constants/NewsCategories'
 import newsTestData from '@/constants/NewsExamples'
 import React, { useState} from 'react'
 import { View, ScrollView, Text, TouchableOpacity, useColorScheme } from 'react-native'
-
+// 1. correct newsCategory.map
 const Home = () => {
 	const colorScheme = useColorScheme(); 
 	return (
