@@ -1,263 +1,68 @@
+import footerItems from '@/constants/FooterStaticData/FooterItems';
 import { Icon } from '@rneui/base';
 import { router } from 'expo-router';
 import React, { useState } from 'react'
-import { Text, Touchable, TouchableOpacity, View, useColorScheme } from 'react-native'
+import { Text, Touchable, TouchableOpacity, View, useColorScheme, StyleSheet } from 'react-native'
+import FooterItem from './FooterItem';
+
+// Styling done for now, 
+// no functionality added, 
+
 
 const FooterBar = () => {
-  const [selected, setSelected] = useState('');
-  const colorScheme = useColorScheme(); 
-  return (
-    <View
-      style={{
+    const [selected, setSelected] = useState('');
+    const colorScheme = useColorScheme();
+    
+    return (
+        <View style={ [styles.container, {backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}]}>
+            <View style={styles.footer_container}>
+                {
+                    footerItems.map((value, index) => (
+                        <FooterItem 
+                            key={index}
+                            title={value.title}
+                            iconName={value.iconName}
+                            iconType={value.iconType}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                    ))
+                }
+            </View>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
         height: '100%',
         width: '100%',
-        backgroundColor: colorScheme === 'dark' ? 'black' : 'white'
-      }}
-    >
-      <View style={{
-        width: '100%', 
-        height: '100%', 
-        minHeight: '100%', 
+        // testing 
+    }, 
+    footer_container: {
+        borderRadius: 25, 
+        width: '100%',
+        height: '100%',
+        minHeight: '100%',
         minWidth: '100%',
         maxHeight: '100%',
-        maxWidth: '100%', 
-        flex: 1, 
-        flexDirection: 'row', 
+        maxWidth: '100%',
+        flex: 1,
+        flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-      }}>
-        <View
-          style={{ 
-            width: '25%',
-            height: '100%',
-            minHeight: '100%',
-            minWidth: '25%',
-            maxHeight: '100%',
-            maxWidth: '25%',
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => { setSelected('home'); router.replace('/')}}
-            style={{
-            padding: 4, 
-            paddingTop: 6, 
-            flex: 1, 
-            justifyContent: 'center',
-          }}>
-            {selected !== 'home' ? (<><Icon name='home' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-              <Text
-                style={{
-                  color: colorScheme === 'dark' ? 'white' : 'black',
-                  alignSelf: 'center',
-                  fontSize: 10,
-                }}
-              >Home
-              </Text></>) : (<>
-                <View
-                  style={{
-                    height: 50,
-                    width: 50,
-                    borderRadius: 25,
-                    backgroundColor: 'red',
-                    borderColor: colorScheme === 'dark' ? 'black' : 'white',
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                    position: 'absolute',
-                    top: -3,
-                    left: 30, 
-                  }}
-                >
-                  <Icon name='home' type='material' color='white' />
-                </View>
-                <Text
-                  style={{
-                    color: 'red',
-                    fontSize: 10,
-                    paddingTop: 30,
-                    textAlign: 'center',
-                    fontWeight: '800',
-                  }}
-                >Home</Text>
-              </>)}
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: '25%',
-            height: '100%',
-            minHeight: '100%',
-            minWidth: '25%',
-            maxHeight: '100%',
-            maxWidth: '25%',
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => { setSelected('explore') }}
-            style={{
-            padding: 4,
-            paddingTop: 6,
-            flex: 1,
-            justifyContent: 'center',
-          }}>
-            { selected !== 'explore' ? (<><Icon name='explore' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-              <Text
-                style={{
-                  color: colorScheme === 'dark' ? 'white' : 'black',
-                  alignSelf: 'center',
-                  fontSize: 10,
-                }}
-              >Explore
-              </Text></>) : (<>
-                <View
-                  style={{
-                    height: 50,
-                    width: 50,
-                    borderRadius: 25,
-                    backgroundColor: 'red',
-                    borderColor: colorScheme === 'dark' ? 'black' : 'white',
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                    position: 'absolute',
-                    top: -3,
-                    left: 30,
-                  }}
-                >
-                  <Icon name='explore' type='material' color='white' />
-                </View>
-                <Text
-                  style={{
-                    color: 'red',
-                    fontSize: 10,
-                    paddingTop: 30,
-                    textAlign: 'center',
-                    fontWeight: '800',
-                  }}
-                >Explore</Text>
-              </>) }
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: '25%',
-            height: '100%',
-            minHeight: '100%',
-            minWidth: '25%',
-            maxHeight: '100%',
-            maxWidth: '25%',
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => { setSelected('favorite') }}
-            style={{
-            padding: 4,
-            paddingTop: 6,
-            flex: 1,
-            justifyContent: 'center',
-          }}>
-            {selected !== 'favorite' ? (<><Icon name='favorite' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-              <Text
-                style={{
-                  color: colorScheme === 'dark' ? 'white' : 'black',
-                  alignSelf: 'center',
-                  fontSize: 10,
-                }}
-              >Favourite
-              </Text></>) : (<>
-                <View
-                  style={{
-                    height: 50,
-                    width: 50,
-                    borderRadius: 25,
-                    backgroundColor: 'red',
-                    borderColor: colorScheme === 'dark' ? 'black' : 'white',
-                    flex: 1,
-                    flexDirection: 'column', 
-                    justifyContent: 'center',
-                    marginBottom: 10,
-                    position: 'absolute',
-                    top: -3,
-                    left: 30,
-                  }}
-                >
-                  <Icon name='favorite' type='material' color='white' />
-                </View>
-                <Text
-                  style={{
-                    color: 'red',
-                    fontSize: 10,
-                    paddingTop: 30,
-                    textAlign: 'center',
-                    fontWeight: '800',
-                  }}
-                >Favorite</Text>
-              </>)}
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: '25%',
-            height: '100%',
-            minHeight: '100%',
-            minWidth: '25%',
-            maxHeight: '100%',
-            maxWidth: '25%',
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => { setSelected('bookmark'), router.replace('/NewsStand') }}
-            style={{
-            padding: 4,
-            paddingTop: 6,
-            flex: 1,
-            justifyContent: 'center',
-          }}>
-            {selected !== 'bookmark' ? (<><Icon name='newspaper-o' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />
-              <Text
-                style={{
-                  color: colorScheme === 'dark' ? 'white' : 'black',
-                  alignSelf: 'center',
-                  fontSize: 10,
-                }}
-              >News Stand
-              </Text></>) : (<>
-                <View
-                  style={{
-                    height: 50, 
-                    width: 50, 
-                    borderRadius: 25, 
-                    backgroundColor: 'red',
-                    borderColor: colorScheme === 'dark' ? 'black' : 'white',  
-                    flex: 1, 
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    marginBottom: 10,
-                    position: 'absolute', 
-                    top: -3, 
-                    left: 27, 
-                  }}
-                >
-                  <Icon name='newspaper-o' type='font-awesome' color='white' />
-                </View>
-                <Text
-                  style={{
-                    color: 'red',
-                    fontSize: 10,
-                    paddingTop: 30,
-                    textAlign: 'center',
-                    fontWeight: '800',
-                  }}
-                >News Stand</Text>
-              </>)
-            }
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
-  )
-}
+        // testing 
+        borderWidth: 0.6, 
+        borderColor: 'gray',
+    }, 
+    footer: {
+        width: '25%',
+        height: '100%',
+        minHeight: '100%',
+        minWidth: '25%',
+        maxHeight: '100%',
+        maxWidth: '25%',
+    }
+})
 
 export default FooterBar

@@ -4,7 +4,7 @@ import NewsCardSlider from '@/components/NewsCardSlider'
 import newsCategories from '@/constants/NewsCategories'
 import newsTestData from '@/constants/NewsExamples'
 import React, { useState} from 'react'
-import { View, ScrollView, Text, TouchableOpacity, useColorScheme } from 'react-native'
+import { View, ScrollView, Text, TouchableOpacity, useColorScheme, StyleSheet } from 'react-native'
 // 1. correct newsCategory.map
 const Home = () => {
 	const colorScheme = useColorScheme(); 
@@ -14,13 +14,7 @@ const Home = () => {
 			backgroundColor: colorScheme === 'dark' ? 'black' : 'white', 
 		}}>
 			<ScrollView
-				style={{
-					height: '6%',
-					width: 'auto',
-					overflow: 'scroll',
-					flexDirection: 'row',
-					paddingTop: 6, 
-				}}
+				style={styles.container}
 				horizontal={true}
 			>
 				{newsCategories.map(value => (
@@ -33,13 +27,7 @@ const Home = () => {
 				))}
 			</ScrollView>
 			<ScrollView
-				style={{
-					width: '100%',
-					marginTop: 4, 
-					overflow: 'scroll',
-					flexDirection: 'column',
-					paddingTop: 3,
-				}}
+				style={styles.slider_container}
 			>
 				{newsTestData.map((value, i) => (
 					<NewsCardSlider
@@ -59,4 +47,21 @@ const Home = () => {
 	)
 }
 
-export default Home
+const styles = StyleSheet.create({
+	container: {
+		height: '6%',
+		width: 'auto',
+		overflow: 'scroll',
+		flexDirection: 'row',
+		paddingTop: 6,
+	}, 
+	slider_container: {
+		width: '100%',
+		marginTop: 4,
+		overflow: 'scroll',
+		flexDirection: 'column',
+		paddingTop: 3,
+	}
+})
+
+export default Home;

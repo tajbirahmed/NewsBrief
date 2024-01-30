@@ -11,10 +11,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Icon } from '@rneui/base';
 
 
+
 type HeaderComponentProps = {
     title: string;
     view?: string;
-    drawer: React.RefObject<DrawerLayoutAndroid> | null; 
+    drawer: React.RefObject<DrawerLayoutAndroid> | null, 
+    drawerClosed: boolean, 
+    setdrawerClosed: (drawerClosed : boolean) => void,
 };
 
 type ParamList = {
@@ -23,7 +26,7 @@ type ParamList = {
     };
 };
 
-const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawer}) => {
+const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawer, drawerClosed, setdrawerClosed}) => {
     const colorScheme = useColorScheme();     
     return (
         <SafeAreaProvider >
@@ -35,7 +38,12 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawe
                         height: '100%', 
                     }}>
                         <TouchableOpacity
-                            onPress={() => { if (drawer !== null ) drawer.current?.openDrawer()}}
+                            onPress={() => {
+                                if (drawer !== null) {
+                                    drawerClosed ? drawer.current?.openDrawer() : drawer.current?.closeDrawer();
+                                    setdrawerClosed(!drawerClosed)
+                                }    
+                            }}
                         >
                             <Icon name='menu' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
                         </TouchableOpacity>
