@@ -10,14 +10,21 @@ interface FooterItemProps {
     iconType: string,
     selected: string,
     setSelected: (selected: string) => void,
+    path: string,
 }
 
-const FooterItem = ({ title, iconName, iconType, selected, setSelected }: FooterItemProps) => {
+const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: FooterItemProps) => {
     const colorScheme = useColorScheme();
     return (
         <View style={styles.footer}>
             <Pressable
-                onPress={() => { setSelected(title); }}
+                onPress={() => {
+                    setSelected(title);
+                    title === "Home" ? router.push("/") :
+                        title === "Explore" ? router.push("/Explore") :
+                            title === "Favourite" ? router.push("/Favourite") :
+                                router.push("/NewsStand");
+                }}
                 style={styles.footer_item_container}>
                 {
                     selected !== title ? (

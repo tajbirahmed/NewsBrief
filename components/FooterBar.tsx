@@ -25,6 +25,7 @@ const FooterBar = () => {
                             iconType={value.iconType}
                             selected={selected}
                             setSelected={setSelected}
+                            path={ value.path}
                         />
                     ))
                 }
