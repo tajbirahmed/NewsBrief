@@ -1,6 +1,7 @@
 import NewsSourceStand from '@/components/NewsSourceStand';
-import React from 'react'
-import { ScrollView, View, StyleSheet, Text } from 'react-native'
+import { Icon } from '@rneui/base';
+import React, { useEffect } from 'react'
+import { ScrollView, View, StyleSheet, Text, useColorScheme, Pressable } from 'react-native'
 
 // 1. handle urlto news source
 // 2. handle actula news source
@@ -19,17 +20,14 @@ interface Category {
 	child?: NewsSourceStandCard[],
 }
 
-const NewsStandSlider = ({ categoryName, child} : Category) => {
+const NewsStandSlider = ({ categoryName, child }: Category) => {
+	const colorScheme = useColorScheme(); 
+	const colorVal = colorScheme === 'dark' ? 'white' : 'black';
+	const bgVal = colorScheme === 'dark' ? 'black' : 'white';
   return (
-		<View style={styles.category_container}> 
-			<View>
-				<Text style={styles.subheading_text}>
-						Explore More News Sources
-				</Text>
-			</View>
-
-		  <View style={ styles.category_heading_container}>
-			  <Text style={ styles.heading}>
+		<View style={[styles.category_container, {backgroundColor: bgVal}]}> 
+			<View style={[styles.category_heading_container, {backgroundColor: bgVal}]}>
+				<Text style={[styles.heading, {color: colorVal}]}>
 				  { categoryName }
 			  </Text>
 		  </View>
@@ -45,7 +43,12 @@ const NewsStandSlider = ({ categoryName, child} : Category) => {
 					))
 				}			
 			</ScrollView>
-			
+			<View style={ styles.explore_more_category_container}>
+				<Pressable>
+					<Text style={[styles.explore_more, { color: colorVal }]} > Explore More in {categoryName}					
+					</Text>
+				</Pressable>
+			</View>
 	  </View>
   )
 }
@@ -57,6 +60,9 @@ const styles = StyleSheet.create({
 	category_heading_container: {
 		width: '100%', 
 		paddingLeft: 4, 
+		margin: 4, 
+		marginLeft: 8, 
+		paddingBottom: 10,
 	}, 
 	heading: {
 		fontSize: 18, 
@@ -68,12 +74,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingTop: 2, 
 	}, 
-	subheading_text: {
-		fontSize: 10, 
+	explore_more_category_container: {
+		width: '100%', 
+		paddingTop: 15, 
+		paddingBottom: 12, 
+	},
+	explore_more: {
 		textAlign: 'center', 
-		fontWeight: '500', 
-		paddingTop: 3, 
-		paddingBottom: 2, 
+		paddingTop: 4, 
 	}
 })
 
