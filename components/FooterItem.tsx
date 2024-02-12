@@ -22,7 +22,7 @@ const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: F
                     setSelected(title);
                     title === "Home" ? router.push("/") :
                         title === "Explore" ? router.push("/Explore") :
-                            title === "Favourite" ? router.push("/Favourite") :
+                            title === "Favourite" ? router.push("/") :
                                 router.push("/NewsStand");
                 }}
                 style={styles.footer_item_container}>
