@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import {
     DrawerLayoutAndroid,
+    Pressable,
     StyleSheet,
     View,
     useColorScheme,
@@ -13,7 +14,7 @@ import { Icon } from '@rneui/base';
 
 
 type HeaderComponentProps = {
-    title: string;
+    title: string | undefined;
     view?: string;
     drawer: React.RefObject<DrawerLayoutAndroid> | null, 
     drawerClosed: boolean, 
@@ -50,10 +51,13 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawe
                     </View>
                 }
                 rightComponent={
-                    <View style={styles.headerRight}>
-                        <TouchableOpacity>
+                    <View style={[styles.headerRight, {paddingRight: 3, }]}>
+                        <Pressable style={{ paddingRight: 5, }}>
                             <Icon name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-                        </TouchableOpacity>
+                        </Pressable>
+                        <Pressable style={{paddingLeft: 7, }}>
+                            <Icon name='user' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                        </Pressable>
                     </View>
                 }
                 centerComponent={{

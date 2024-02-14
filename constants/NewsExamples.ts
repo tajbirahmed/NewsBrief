@@ -1,11 +1,11 @@
 interface Source {
-  id: string | null;
+  id?: string ;
   name: string;
 }
 
 interface NewsItem {
   source: Source;
-  author: string | null;
+  author?: string;
   title: string;
   description: string | null;
   url: string;
@@ -18,10 +18,9 @@ interface NewsItem {
 const newsTestData: NewsItem[] = [
   {
     source: {
-      id: null,
-      name: "[Removed]",
+      name: "Wall Street",
     },
-    author: null,
+    author: "Anisul Haque",
     title: "[Removed]",
     description: "[Removed]",
     url: "https://removed.com",
@@ -31,7 +30,6 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "The Seattle Times",
     },
     author: "Dominic Gates",
@@ -44,10 +42,9 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "NDTV News",
     },
-    author: null,
+    author: "Anisul Haque",
     title: "Man Removed From American Airlines Flight For Farting Excessively: Report - NDTV",
     description: "The flight, which was heading towards the runway for takeoff, stopped and returned to the gate.",
     url: "https://www.ndtv.com/world-news/man-removed-from-american-airlines-flight-for-farting-excessively-4924521",
@@ -57,10 +54,8 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "Yahoo Entertainment",
     },
-    author: null,
     title: "Why tech layoffs aren't yet a sign of a labor market slowdown - Yahoo Finance",
     description: null,
     url: "https://finance.yahoo.com/news/why-tech-layoffs-arent-yet-a-sign-of-a-labor-market-slowdown-133651976.html",
@@ -70,7 +65,6 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "Investor's Business Daily",
     },
     author: "Investor's Business Daily",
@@ -83,7 +77,6 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "CNBC",
     },
     author: "Hugh Son",
@@ -109,7 +102,6 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "Yahoo Entertainment",
     },
     author: "Alexandra Canal",
@@ -122,10 +114,8 @@ const newsTestData: NewsItem[] = [
   },
   {
     source: {
-      id: null,
       name: "Mediaroom.com",
     },
-    author: null,
     title: "Abbott Reports Fourth-Quarter and Full-Year 2023 Results; Issues 2024 Financial Outlook - Press Releases",
     description: "Fourth-quarter reported sales increased 1.5 percent; organic sales growth for the underlying base business increased 11.0 percent Full-year 2023 reported sales decreased 8.1 percent due to...",
     url: "https://abbott.mediaroom.com/2024-01-24-Abbott-Reports-Fourth-Quarter-and-Full-Year-2023-Results-Issues-2024-Financial-Outlook",
@@ -138,7 +128,6 @@ const newsTestData: NewsItem[] = [
       id: "bloomberg",
       name: "Bloomberg",
     },
-    author: null,
     title: "China's Bold Stock-Market Rescue Plan Leaves Investors Skeptical - Bloomberg",
     description: null,
     url: "https://www.bloomberg.com/news/articles/2024-01-23/china-s-bold-stock-market-rescue-plan-lures-a-crowd-of-skeptics",

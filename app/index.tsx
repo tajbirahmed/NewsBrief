@@ -3,11 +3,12 @@ import NewsCard from '@/components/NewsCard'
 import NewsCardSlider from '@/components/NewsCardSlider'
 import newsCategories from '@/constants/NewsCategories'
 import newsTestData from '@/constants/NewsExamples'
-import React, { useState} from 'react'
+import React, { useContext, useEffect, useState} from 'react'
 import { View, ScrollView, Text, TouchableOpacity, useColorScheme, StyleSheet } from 'react-native'
 // 1. correct newsCategory.map
 const Home = () => {
 	const colorScheme = useColorScheme(); 
+
 	return (
 		<View style={{
 			height: 'auto',
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
 		overflow: 'scroll',
 		flexDirection: 'row',
 		paddingTop: 6,
+		padding: 2,
 	}, 
 	slider_container: {
 		width: '100%',

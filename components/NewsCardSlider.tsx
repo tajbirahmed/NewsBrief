@@ -1,15 +1,15 @@
 import { Card, Icon } from "@rneui/base";
-import { TouchableOpacity, View, Image, useColorScheme, Text } from "react-native";
+import { TouchableOpacity, View, Image, useColorScheme, StyleSheet } from "react-native";
 import NewsCard from "./NewsCard";
 
 interface Source {
-  id: string | null;
+  id?: string;
   name: string;
 }
 
 interface NewsItem {
   source: Source;
-  author: string | null;
+  author?: string;
   title: string;
   description: string | null;
   url: string;
@@ -18,7 +18,8 @@ interface NewsItem {
   content: string | null;
 }
 
-const NewsCardSlider = ({ source,
+const NewsCardSlider = ({
+  source,
   author,
   title,
   description,
@@ -29,16 +30,24 @@ const NewsCardSlider = ({ source,
   const colorScheme = useColorScheme();
   return (
     
-      <View
-        style={{
-          width: '100%',
-          minHeight: 180,
-        }}
-      >
-        <NewsCard title={title} illustration={ urlToImage} />
+      <View style={styles.container}>
+      <NewsCard
+        title={title}
+        illustration={urlToImage}
+        author={author}
+        source={ source.name}
+      />
       </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    minHeight: 180,
+    justifyContent: 'center'
+  }
+})
 
 export default NewsCardSlider;
 

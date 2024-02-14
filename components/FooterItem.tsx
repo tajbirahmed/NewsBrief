@@ -1,6 +1,6 @@
 import { Icon } from '@rneui/base';
 import { router } from 'expo-router';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, useColorScheme, Pressable, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
@@ -15,6 +15,9 @@ interface FooterItemProps {
 
 const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: FooterItemProps) => {
     const colorScheme = useColorScheme();
+    useEffect(() => { 
+        setSelected('Home');
+    },[])
     return (
         <View style={styles.footer}>
             <Pressable
@@ -22,7 +25,7 @@ const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: F
                     setSelected(title);
                     title === "Home" ? router.push("/") :
                         title === "Explore" ? router.push("/Explore") :
-                            title === "Favourite" ? router.push("/") :
+                            title === "Favourite" ? router.push("/Favourite") :
                                 router.push("/NewsStand");
                 }}
                 style={styles.footer_item_container}>

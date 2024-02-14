@@ -6,51 +6,57 @@ import { Slot } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { View, Text } from 'react-native';
 import FooterBar from '@/components/FooterBar';
-import { Icon } from '@rneui/base';
 import SideMenu from '@/components/SideMenuComponents/SideMenu';
+
+
 
 const RootLayout = () => {
     const colorScheme = useColorScheme();
     const drawer = useRef<DrawerLayoutAndroid>(null);
-    const [drawerClosed, setdrawerClosed] = useState(true)
+    const [drawerClosed, setdrawerClosed] = useState(true); 
     return (
+        
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <View style={{
                 flex: 1,
             }}>
-
+                
+                <DrawerLayoutAndroid
+                    ref={drawer}
+                    drawerWidth={300}
+                    drawerPosition='left'
+                    renderNavigationView={() => (<SideMenu drawer={drawer} />)}
+                    drawerBackgroundColor={colorScheme == 'dark' ? 'black' : 'white'}
+                    style={styles.drawer}
+                    onDrawerOpen={() => {
+                        // StatusBar.setHidden(true, 'fade');
+                    }}
+                    onDrawerClose={() => {
+                        // StatusBar.setHidden(false, 'slide');
+                    }}
+                >
                 <View style={styles.header_container}>
                     <HeaderBar
-                        title='News Brief'
+                        title={"News Brief"}
                         drawer={drawer}
                         drawerClosed={drawerClosed}
                         setdrawerClosed={setdrawerClosed}
                     />
                 </View>
                 <View style={styles.page_slot}>
-                    <DrawerLayoutAndroid
-                        ref={drawer}
-                        drawerWidth={300}
-                        drawerPosition='left'
-                        renderNavigationView={() => (<SideMenu drawer={drawer} />)}
-                        drawerBackgroundColor={colorScheme == 'dark' ? 'black' : 'white'}
-                        style={styles.drawer}
-                        onDrawerOpen={() => {
-                            // StatusBar.setHidden(true, 'fade');
-                        }}
-                        onDrawerClose={() => {
-                            // StatusBar.setHidden(false, 'slide');
-                        }}
-                    >
+                    
                         <Slot />
 
-                    </DrawerLayoutAndroid>
+                   
                 </View>
                 <View style={styles.footer_container}>
                     <FooterBar />
-                </View>
+                    </View>
+                </DrawerLayoutAndroid>
             </View>
-        </ThemeProvider >
+        </ThemeProvider>
+
+        
     )
 }
 
