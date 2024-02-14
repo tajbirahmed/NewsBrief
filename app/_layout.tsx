@@ -7,6 +7,7 @@ import React, { useRef, useState } from 'react';
 import { View, Text } from 'react-native';
 import FooterBar from '@/components/FooterBar';
 import SideMenu from '@/components/SideMenuComponents/SideMenu';
+import AuthScreen from '@/components/AuthScreen';
 
 
 
@@ -14,9 +15,14 @@ const RootLayout = () => {
     const colorScheme = useColorScheme();
     const drawer = useRef<DrawerLayoutAndroid>(null);
     const [drawerClosed, setdrawerClosed] = useState(true); 
+    const [showAuthScreen, setShowAuthScreen] = useState(false);
     return (
         
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            {showAuthScreen ? (<AuthScreen
+                showAuthScreen={showAuthScreen}
+                setShowAuthScreen={ setShowAuthScreen}
+                    />) : (<>
             <View style={{
                 flex: 1,
             }}>
@@ -35,25 +41,30 @@ const RootLayout = () => {
                         // StatusBar.setHidden(false, 'slide');
                     }}
                 >
-                <View style={styles.header_container}>
-                    <HeaderBar
-                        title={"News Brief"}
-                        drawer={drawer}
-                        drawerClosed={drawerClosed}
-                        setdrawerClosed={setdrawerClosed}
-                    />
-                </View>
-                <View style={styles.page_slot}>
-                    
-                        <Slot />
-
-                   
-                </View>
-                <View style={styles.footer_container}>
-                    <FooterBar />
+                
+                    <View style={styles.header_container}>
+                        <HeaderBar
+                                title={"News Brief"}
+                                drawer={drawer}
+                                drawerClosed={drawerClosed}
+                                setdrawerClosed={setdrawerClosed}
+                                showAuthScreen={showAuthScreen}
+                                setShowAuthScreen={setShowAuthScreen}
+                        />
                     </View>
-                </DrawerLayoutAndroid>
-            </View>
+                    <View style={styles.page_slot}>
+                        
+                            <Slot />
+
+                    
+                    </View>
+                    <View style={styles.footer_container}>
+                        <FooterBar />
+                        </View>
+                    </DrawerLayoutAndroid>
+                </View>
+        </>)
+                }
         </ThemeProvider>
 
         

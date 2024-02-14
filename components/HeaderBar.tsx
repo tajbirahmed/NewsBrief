@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     DrawerLayoutAndroid,
     Pressable,
@@ -10,7 +10,8 @@ import { Header as HeaderRNE, HeaderProps } from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Icon } from '@rneui/base';
-
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
 
 
 type HeaderComponentProps = {
@@ -18,7 +19,9 @@ type HeaderComponentProps = {
     view?: string;
     drawer: React.RefObject<DrawerLayoutAndroid> | null, 
     drawerClosed: boolean, 
-    setdrawerClosed: (drawerClosed : boolean) => void,
+    setdrawerClosed: (drawerClosed: boolean) => void,
+    showAuthScreen: boolean, 
+    setShowAuthScreen: (showAuthScreen : boolean) => void,
 };
 
 type ParamList = {
@@ -27,8 +30,21 @@ type ParamList = {
     };
 };
 
-const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawer, drawerClosed, setdrawerClosed}) => {
-    const colorScheme = useColorScheme();     
+const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
+    title,
+    drawer,
+    drawerClosed,
+    setdrawerClosed,
+    showAuthScreen, 
+    setShowAuthScreen,
+}) => {
+    const [user, setUser] = useState<User | null>(null); 
+    useEffect(() => {
+        onAuthStateChanged(FIREBASE_AUTH, (user) => {
+            setUser(user);
+        })
+    }); 
+    const colorScheme = useColorScheme();  
     return (
         <SafeAreaProvider >
             <HeaderRNE
@@ -46,7 +62,9 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawe
                                 }    
                             }}
                         >
-                            <Icon name='menu' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                            
+                                    <Icon name='menu' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                        
                         </TouchableOpacity>
                     </View>
                 }
@@ -55,8 +73,10 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({ title, drawe
                         <Pressable style={{ paddingRight: 5, }}>
                             <Icon name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
                         </Pressable>
-                        <Pressable style={{paddingLeft: 7, }}>
-                            <Icon name='user' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                        <Pressable style={{ paddingLeft: 7, }} onPress={() => {setShowAuthScreen(true)}}>
+                            {user ? (
+                                <Icon name='logout' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />)
+                                : (<Icon name='user' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />)}
                         </Pressable>
                     </View>
                 }
