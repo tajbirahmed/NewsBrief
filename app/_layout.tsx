@@ -19,10 +19,12 @@ const RootLayout = () => {
     return (
         
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            {showAuthScreen ? (<AuthScreen
-                showAuthScreen={showAuthScreen}
-                setShowAuthScreen={ setShowAuthScreen}
-                    />) : (<>
+            {showAuthScreen ? (
+                <AuthScreen
+                    showAuthScreen={showAuthScreen}
+                    setShowAuthScreen={ setShowAuthScreen}
+                />
+            ) : (<>
             <View style={{
                 flex: 1,
             }}>
@@ -44,12 +46,12 @@ const RootLayout = () => {
                 
                     <View style={styles.header_container}>
                         <HeaderBar
-                                title={"News Brief"}
-                                drawer={drawer}
-                                drawerClosed={drawerClosed}
-                                setdrawerClosed={setdrawerClosed}
-                                showAuthScreen={showAuthScreen}
-                                setShowAuthScreen={setShowAuthScreen}
+                            title={"News Brief"}
+                            drawer={drawer}
+                            drawerClosed={drawerClosed}
+                            setdrawerClosed={setdrawerClosed}
+                            showAuthScreen={showAuthScreen}
+                            setShowAuthScreen={setShowAuthScreen}
                         />
                     </View>
                     <View style={styles.page_slot}>

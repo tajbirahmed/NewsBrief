@@ -1,41 +1,19 @@
 import { Card, Icon } from "@rneui/base";
 import { TouchableOpacity, View, Image, useColorScheme, StyleSheet } from "react-native";
 import NewsCard from "./NewsCard";
+import { Result } from "@/types/NewsApiTypes";
 
-interface Source {
-  id?: string;
-  name: string;
+interface PageProps { 
+  options: Result
 }
 
-interface NewsItem {
-  source: Source;
-  author?: string;
-  title: string;
-  description: string | null;
-  url: string;
-  urlToImage: string | undefined;
-  publishedAt: string;
-  content: string | null;
-}
-
-const NewsCardSlider = ({
-  source,
-  author,
-  title,
-  description,
-  url,
-  urlToImage,
-  publishedAt,
-  content }: NewsItem) => {
+const NewsCardSlider = (options: PageProps) => {
   const colorScheme = useColorScheme();
   return (
     
       <View style={styles.container}>
       <NewsCard
-        title={title}
-        illustration={urlToImage}
-        author={author}
-        source={ source.name}
+        options={options.options}
       />
       </View>
   )

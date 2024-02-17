@@ -70,14 +70,14 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                 }
                 rightComponent={
                     <View style={[styles.headerRight, {paddingRight: 3, }]}>
-                        <Pressable style={{ paddingRight: 5, }}>
+                        <TouchableOpacity style={{ paddingRight: 5, }}>
                             <Icon name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-                        </Pressable>
-                        <Pressable style={{ paddingLeft: 7, }} onPress={() => {setShowAuthScreen(true)}}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ paddingLeft: 7, }} onPress={() => {setShowAuthScreen(true)}}>
                             {user ? (
                                 <Icon name='logout' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />)
                                 : (<Icon name='user' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />)}
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 }
                 centerComponent={{

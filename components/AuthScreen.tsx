@@ -116,9 +116,10 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
                             onChangeText={(password) => { setPasswordConfirm(password); setColorConfirrmPassword(true); }}
                         />
                     </View>
-                    <TouchableOpacity style={styles.loginBtn} onPress={() => { signUp() }}>
-                        <Text style={{ color: 'white' }}>Send Verification Link</Text>
-                    </TouchableOpacity>
+                    {signUpLoading ? (<ActivityIndicator size="large" color='white' />) :
+                        (<TouchableOpacity style={styles.loginBtn} onPress={() => { signUp() }}>
+                            <Text style={{ color: 'white' }}>Send Verification Link</Text>
+                        </TouchableOpacity>)}
                     </>) : (<>{user ? (<>
                     <Text style={{ color: 'white', alignSelf: 'center' }}>logged in as {user?.email}</Text>
                         
