@@ -1,15 +1,18 @@
 import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
+import { signIn } from '@/auth/signIn';
+import { signUp } from '@/auth/signUp';
+import { signout } from '@/auth/signou';
 import { Icon } from '@rneui/base';
 import { User, createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, Button, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import Modal from "react-native-modal";
+
 interface AuthScreenProps {
     showAuthScreen: boolean,
     setShowAuthScreen: (showAuthScreen: boolean) => void,
 }
 
-// 1. create acount  
 // 2. forgot password 
 // 3. sign in using google
 
@@ -19,67 +22,19 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<User | null>(null);
     const [signOutLoading, setSignOutLoading] = useState(false);
-    const [createAccount, setCreateAccount] = useState(false); 
-    const [passwordConfirm, setPasswordConfirm] = useState(''); 
+    const [createAccount, setCreateAccount] = useState(false);
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [colorConfirrmPassword, setColorConfirrmPassword] = useState(false);
-    const [signUpLoading, setSignUpLoading] = useState(false)
-    const actionCodeSettings = {
-        // URL you want to redirect back to. The domain (www.example.com) for this
-        // URL must be in the authorized domains list in the Firebase Console.
-        url: 'https://newsbiref.firebaseapp.com',
-        // This must be true.
-        handleCodeInApp: true,
-        
-        dynamicLinkDomain: 'newsbrief.page.link'
-    };
-    useEffect(() => { 
-        onAuthStateChanged(FIREBASE_AUTH, (user) => { 
+    const [signUpLoading, setSignUpLoading] = useState(false); 
+    const [verificationLinkStatus, setVerificationLinkStatus] = useState(false);
+    useEffect(() => {
+        onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
             console.log(user?.email);
-            
+
         })
     }, [])
-
-    const signIn = async () => {
-        setLoading(true);
-        try {
-            const response = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-            setShowAuthScreen(false);
-        } catch (error: any) {
-            console.log(error);
-            alert('Check your emails');
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    const signUp = async () => {
-        setSignUpLoading(true); 
-        try {
-            const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
-            await sendEmailVerification(response.user, actionCodeSettings); 
-            if (response.user.emailVerified) { 
-                signIn();
-            }
-        } catch (e: any) {
-            alert('Internel Error!' + e.message);
-        } finally { 
-            setSignUpLoading(false); 
-        }
-    }
-
-    const signout = async () => { 
-        setSignOutLoading(true); 
-        try {
-            const response = await signOut(FIREBASE_AUTH);
-             
-        } catch (e: any) {
-            alert('Error Occured Logging out');
-        } finally { 
-            setSignOutLoading(false);
-        }
-    }
-
+    
     return (
         <View style={styles.container}>
             <Modal isVisible={showAuthScreen}>
@@ -117,55 +72,64 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
                         />
                     </View>
                     {signUpLoading ? (<ActivityIndicator size="large" color='white' />) :
-                        (<TouchableOpacity style={styles.loginBtn} onPress={() => { signUp() }}>
+                        !verificationLinkStatus ? (<TouchableOpacity style={styles.loginBtn}
+                            onPress={() => { signUp({ signUpLoading, setSignUpLoading, verificationLinkStatus, setVerificationLinkStatus, email, password }) }}>
                             <Text style={{ color: 'white' }}>Send Verification Link</Text>
-                        </TouchableOpacity>)}
-                    </>) : (<>{user ? (<>
+                        </TouchableOpacity>) : (
+                                <TouchableOpacity style={[styles.loginBtn, { backgroundColor: 'green', width: '90%',  }]}>
+                                    <Text style={{ color: 'white', marginBottom: 5 }}>
+                                        Verification Email Sent! <Icon name='check' type='font-awesome' color='white' />
+                                    </Text>
+                                </TouchableOpacity>
+                        )}
+                </>) : (<>{user ? (<>
                     <Text style={{ color: 'white', alignSelf: 'center' }}>logged in as {user?.email}</Text>
-                        
-                        {signOutLoading ? (<ActivityIndicator size="large" color='white' />) : (
-                    <TouchableOpacity style={styles.loginBtn} onPress={signout}>
-                        <Text style={{ color: 'white' }}>Log Out</Text>
-                    </TouchableOpacity>
-                )}
 
-            </>) : (
-            <View>
-                <KeyboardAvoidingView behavior='padding'>
-                    <View style={styles.inputView}>
-                        <TextInput
-                            style={styles.TextInput}
-                            placeholder="Email."
-                            placeholderTextColor="#003f5c"
-                            onChangeText={(email) => setEmail(email)}
-                        />
-                    </View>
-                    <View style={styles.inputView}>
-                        <TextInput
-                            style={styles.TextInput}
-                            placeholder="Password."
-                            placeholderTextColor="#003f5c"
-                            secureTextEntry={true}
-                            onChangeText={(password) => setPassword(password)}
-                        />
-                    </View>
-                    <TouchableOpacity>
-                        <Text style={styles.forgot_button}>Forgot Password?</Text>
-                    </TouchableOpacity>
-                    {loading ? <ActivityIndicator size="large" color='white' /> : (
-                        <>
-                            <TouchableOpacity style={styles.loginBtn} onPress={signIn}>
-                                <Text style={{ color: 'white' }}>Log in</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.loginBtn} onPress={() => { setCreateAccount(true)}}>
-                                <Text style={{ color: 'white' }}>Create Account</Text>
-                            </TouchableOpacity>
-                        </>
+                    {signOutLoading ? (<ActivityIndicator size="large" color='white' />) : (
+                            <TouchableOpacity style={styles.loginBtn}
+                                onPress={() => { signout({signOutLoading, setSignOutLoading})} }>
+                            <Text style={{ color: 'white' }}>Log Out</Text>
+                        </TouchableOpacity>
                     )}
-                </KeyboardAvoidingView>
-            </View>)}</>)}
-                    
-            </Modal>     
+
+                </>) : (
+                    <View>
+                        <KeyboardAvoidingView behavior='padding'>
+                            <View style={styles.inputView}>
+                                <TextInput
+                                    style={styles.TextInput}
+                                    placeholder="Email."
+                                    placeholderTextColor="#003f5c"
+                                    onChangeText={(email) => setEmail(email)}
+                                />
+                            </View>
+                            <View style={styles.inputView}>
+                                <TextInput
+                                    style={styles.TextInput}
+                                    placeholder="Password."
+                                    placeholderTextColor="#003f5c"
+                                    secureTextEntry={true}
+                                    onChangeText={(password) => setPassword(password)}
+                                />
+                            </View>
+                            <TouchableOpacity>
+                                <Text style={styles.forgot_button}>Forgot Password?</Text>
+                            </TouchableOpacity>
+                            {loading ? <ActivityIndicator size="large" color='white' /> : (
+                                <>
+                                    <TouchableOpacity style={styles.loginBtn}
+                                                onPress={() => { signIn({ loading, setLoading, showAuthScreen, setShowAuthScreen, email, password })}}>
+                                        <Text style={{ color: 'white' }}>Log in</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.loginBtn} onPress={() => { setCreateAccount(true) }}>
+                                        <Text style={{ color: 'white' }}>Create Account</Text>
+                                    </TouchableOpacity>
+                                </>
+                            )}
+                        </KeyboardAvoidingView>
+                    </View>)}</>)}
+
+            </Modal>
         </View>
     )
 }
