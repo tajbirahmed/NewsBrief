@@ -3,9 +3,10 @@ import { TouchableOpacity, View, Image, useColorScheme, StyleSheet } from "react
 import NewsCard from "./NewsCard";
 import { Result } from "@/types/NewsApiTypes";
 
-interface PageProps { 
-  options: Result
+export interface PageProps { 
+  options: Result,
 }
+
 
 const NewsCardSlider = (options: PageProps) => {
   const colorScheme = useColorScheme();

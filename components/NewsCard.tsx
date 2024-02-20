@@ -1,56 +1,21 @@
 import { Result } from '@/types/NewsApiTypes';
-import { Icon, ScreenHeight, ScreenWidth, color } from '@rneui/base';
-import React, { useRef, useState } from 'react';
+import { Icon, ScreenHeight, ScreenWidth } from '@rneui/base';
+import React, { useContext, useRef, useState } from 'react';
 import { View, Text, Image, SafeAreaView, Pressable, useColorScheme, StyleSheet, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import { PageProps } from './NewsCardSlider';
+import { router  } from 'expo-router';
 
-interface PageProps {
-    options: Result
-}
 
 const NewsCard = (options: PageProps) => {
     const ref = useRef<any>();
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const colorScheme = useColorScheme();
+    
     const carouselItems: Result[] = [
         {
             ...options.options,
         }
-        // {
-        //     title: 'Beautiful and dramatic Antelope Canyon',
-        //     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        //     illustration: 'https://i.imgur.com/UYiroysl.jpg',
-        //     source: source,
-        //     author: author,
-        // },
-        // {
-        //     title: 'Earlier this morning, NYC',
-        //     subtitle: 'Lorem ipsum dolor sit amet',
-        //     illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-        //     source: source,
-        //     author: author,
-        // },
-        // {
-        //     title: 'White Pocket Sunset',
-        //     subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-        //     illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-        //     source: source,
-        //     author: author,
-        // },
-        // {
-        //     title: 'Acrocorinth, Greece',
-        //     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        //     illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-        //     source: source,
-        //     author: author,
-        // },
-        // {
-        //     title: 'The lone tree, majestic landscape of New Zealand',
-        //     subtitle: 'Lorem ipsum dolor sit amet',
-        //     illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-        //     source: source,
-        //     author: author,
-        // },
     ];
 
     const renderItem = ({ item, index }: { item: Result; index: number }) => {
@@ -68,32 +33,39 @@ const NewsCard = (options: PageProps) => {
                     borderWidth: 0.2,
                 }}
             >
+                
                 <TouchableOpacity style={{
                     flex: 1,
                     borderRadius: 10,
                     width: '100%'
+                }} onPress={() => {
+                    router.push({
+                        pathname: '/ArticleView/', params: {
+                            title: item.image_url, 
+                        }
+                    })
                 }}>
-                    <Image
-                        style={{
-                            flex: 1,
-                            borderRadius: 10,
-                            width: '100%'
-                        }}
-                        source={{ uri: item.image_url }}
-                    />
-                    <Text
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                        style={{
-                            fontSize: 18,
-                            fontWeight: '400',
-                            color: colorScheme === 'dark' ? 'white' : 'black',
-                            overflow: 'hidden',
-                        }}
-                    >
-                        {item.title}
-                    </Text>
-                </TouchableOpacity>
+                        <Image
+                            style={{
+                                flex: 1,
+                                borderRadius: 10,
+                                width: '100%'
+                            }}
+                            source={{ uri: item.image_url }}
+                        />
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            style={{
+                                fontSize: 18,
+                                fontWeight: '400',
+                                color: colorScheme === 'dark' ? 'white' : 'black',
+                                overflow: 'hidden',
+                            }}
+                        >
+                            {item.title}
+                        </Text>
+                    </TouchableOpacity>
                 
                 <View style={styles.card_footer}>
                     <TouchableOpacity style={[styles.source_name]}>

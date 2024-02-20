@@ -10,26 +10,26 @@ export interface PaginationProps {
 }
 
 export interface Result {
-  article_id: string;
   title: string;
   link: string;
   keywords: string[];
   creator: string[];
   video_url: string | null;
   description: string;
+  full_description: string,
   content: string;
   pubDate: string;
   image_url: string;
   source_id: string;
   source_url: string;
-  source_priority: number;
+  source_priority?: number;
   country: string[];
   category: string[];
   language: string;
-  ai_tag: string[];
-  ai_region: string | null;
-  sentiment: string;
-  sentiment_stats: SentimentStats;
+  ai_tag?: string[];
+  ai_region?: string | null;
+  sentiment?: string;
+  sentiment_stats?: SentimentStats;
 }
 
 interface SentimentStats {
