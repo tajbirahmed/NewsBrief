@@ -6,7 +6,8 @@ export interface Article {
 
 export interface PaginationProps {
   nextPage: string,
-  setNextPage: (nextPage: string) => void
+  setNextPage: (nextPage: string) => void, 
+  category? : string,
 }
 
 export interface Result {

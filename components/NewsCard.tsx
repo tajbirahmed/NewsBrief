@@ -1,10 +1,16 @@
 import { Result } from '@/types/NewsApiTypes';
 import { Icon, ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { useContext, useRef, useState } from 'react';
-import { View, Text, Image, SafeAreaView, Pressable, useColorScheme, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, Pressable, useColorScheme, StyleSheet, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { PageProps } from './NewsCardSlider';
 import { router  } from 'expo-router';
+import { Image } from 'expo-image';
+import RatingComp from './RatingComp';
+
+const blurhash =
+    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
+
 
 
 const NewsCard = (options: PageProps) => {
@@ -21,6 +27,7 @@ const NewsCard = (options: PageProps) => {
     const renderItem = ({ item, index }: { item: Result; index: number }) => {
 
         return (
+            <>
             <View
                 style={{
                     backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
@@ -40,9 +47,7 @@ const NewsCard = (options: PageProps) => {
                     width: '100%'
                 }} onPress={() => {
                     router.push({
-                        pathname: '/ArticleView/', params: {
-                            title: item.image_url, 
-                        }
+                        pathname: '/ArticleView/'
                     })
                 }}>
                         <Image
@@ -51,7 +56,10 @@ const NewsCard = (options: PageProps) => {
                                 borderRadius: 10,
                                 width: '100%'
                             }}
-                            source={{ uri: item.image_url }}
+                            source={item.image_url}
+                            placeholder={blurhash}
+                            contentFit="cover"
+                            transition={1000}
                         />
                         <Text
                             numberOfLines={1}
@@ -71,11 +79,11 @@ const NewsCard = (options: PageProps) => {
                     <TouchableOpacity style={[styles.source_name]}>
                         <Text style={[styles.source_name, { color: colorScheme === 'dark' ? 'white' : 'black' }]} numberOfLines={1}>{item.source_id}</Text>
                     </TouchableOpacity>
-                    <View style={[styles.more_info]}>
-                        <Icon name='caret-down' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />
-                    </View>
+                    
                 </View>
-            </View>
+                </View>
+                    <RatingComp />
+            </>
         );
     };
 

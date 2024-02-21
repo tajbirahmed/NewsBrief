@@ -126,7 +126,8 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
                                         </Text>
                                     </TouchableOpacity>
                             )}
-                </View>) : (<>{user ? (<>
+                    </View>) : (<>{user ? (<>
+                        
                     <Text style={{ color: 'white', alignSelf: 'center' }}>logged in as {user?.email}</Text>
 
                     {signOutLoading ? (<ActivityIndicator size="large" color='white' />) : (

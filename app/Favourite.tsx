@@ -1,9 +1,12 @@
 import React from 'react'
-import { Text } from 'react-native';
+import { Text, View, useColorScheme } from 'react-native';
 
 const Home = () => {
+  const colorScheme = useColorScheme(); 
   return (
-    <Text>Favourite</Text>
+    <View style={{flex : 1, backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}>
+      <Text style={{ marginLeft: 10, color: colorScheme === 'dark' ? 'white' : 'black' }}>Your Favorites will Appear here!</Text>
+    </View>
   )
 }
 

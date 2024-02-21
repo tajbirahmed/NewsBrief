@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
     footer_container: {
         flex: 1,
         width: '100%',
-        height: '5%',
+        height: '3%',
         maxWidth: '100%',
-        maxHeight: '8%',
+        maxHeight: '6%',
         flexDirection: 'row',
         justifyContent: 'center',
     },

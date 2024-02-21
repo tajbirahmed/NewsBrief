@@ -12,7 +12,7 @@ import { router } from 'expo-router'
 // 1. correct newsCategory.map
 
 
-const exampleNews: Result[] = [
+export const exampleNews: Result[] = [
 	{
 	title: "India taking up issues of pending salaries in Gulf countries",
 	link: "https://www.sentinelassam.com/national-news/india-taking-up-issues-of-pending-salaries-in-gulf-countries-576449",
@@ -37,7 +37,8 @@ const exampleNews: Result[] = [
 		"top"
 	],
 	language: "english"
-},
+	},
+	
 ]
 
 

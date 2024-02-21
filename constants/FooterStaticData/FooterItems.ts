@@ -10,7 +10,7 @@ interface FooterItemProps {
 const footerItems: FooterItemProps[] = [
   { title: "Home", iconName: "home", iconType: "material", path: "/" }, 
   { title: "Explore", iconName: "explore", iconType: "material", path: "/Explore" },
-  { title: "Favourite", iconName: "favorite", iconType: "material", path: "/Favourite" },
+  { title: "Favorite", iconName: "favorite", iconType: "material", path: "/Favourite" },
   { title: "News Stand", iconName: "newspaper-o", iconType: "font-awesome", path: "/NewsStand" },
   
 ]
