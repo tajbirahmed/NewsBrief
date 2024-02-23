@@ -51,12 +51,14 @@ const Home = () => {
 	const [loadMoreData, setLoadMoreData] = useState(0);
 	const [firstLoading, setFirstLoading] = useState(true); 
 	const [generalLoading, setGeneralLoading] = useState(false); 
+	const category = 'top';
 	useEffect(() => { 
 		loadMoreData === 0 ? setFirstLoading(true) : null;
 		setGeneralLoading(true);
 		// fetchArticleData({
 		// 	nextPage,
-		// 	setNextPage
+		// 	setNextPage, 
+		// 	category, 
 		// }).then((e) => setResult((prev) => [...prev, ...e])); 
 		loadMoreData === 0 ? setFirstLoading(false) : null;
 		setGeneralLoading(false);

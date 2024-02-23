@@ -49,9 +49,8 @@ const Home = ({ }) => {
     const colorScheme = useColorScheme();
     const pubDate = formatDateFromString(exampleArticle.pubDate);
     const refVideo = useRef<Video>({} as Video);
-    const [inFullscreen, setInFullsreen] = useState(false)
+    const [inFullscreen, setInFullsreen] = useState(false);
     const [isMute, setIsMute] = useState(true);
-    console.log(isYouTubeLink(exampleArticle.video_url));
     
     return (
         <ScrollView style={[styles.container, {backgroundColor : colorScheme === 'dark' ? 'black' : 'white'}]}>
