@@ -8,6 +8,8 @@ node_modules/
 dist/
 web-build/
 /auth/SecretKeys/
+/api/secretKeys/
+
 # Native
 *.orig.*
 *.jks

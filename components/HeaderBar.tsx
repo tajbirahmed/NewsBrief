@@ -9,9 +9,10 @@ import {
 import { Header as HeaderRNE, HeaderProps } from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Icon } from '@rneui/base';
+import { Icon, withBadge } from '@rneui/base';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
+import { Image } from 'expo-image';
 
 
 type HeaderComponentProps = {
@@ -42,6 +43,8 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
     useEffect(() => {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
+            console.log(user?.photoURL);
+            
         })
     }); 
     const colorScheme = useColorScheme();  
@@ -75,7 +78,10 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                         </TouchableOpacity>
                         <TouchableOpacity style={{ paddingLeft: 7, }} onPress={() => {setShowAuthScreen(true)}}>
                             {user ? (
-                                <Icon name='logout' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />)
+                                <Image
+                                    style={{ width: 30, height: 30, borderRadius: 15, }}
+                                    source={user.photoURL}
+                                />)
                                 : (<Icon name='user' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />)}
                         </TouchableOpacity>
                     </View>

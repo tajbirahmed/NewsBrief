@@ -16,6 +16,7 @@ interface SignUpPops {
     email: string, 
     password: string, 
     userName: string,
+    profilePhoto?: string,
 }
 
 export const signUp = async ({ 
@@ -25,7 +26,8 @@ export const signUp = async ({
     setVerificationLinkStatus,
     email, 
     password, 
-    userName
+    userName, 
+    profilePhoto, 
 } : SignUpPops) => {
     setSignUpLoading(true);
     try {
@@ -35,7 +37,12 @@ export const signUp = async ({
         const docRef = await addDoc(collection(DB, 'users'), {
             user_name: userName,
         })
-        await updateProfile(response.user, { displayName: userName }).catch((e: any) => console.log(e))
+        console.log(profilePhoto);
+        
+        await updateProfile(response.user, {
+            displayName: userName, 
+            photoURL: profilePhoto,
+        }).catch((e: any) => console.log(e))
         if (!response.user.emailVerified) {
             signOut(FIREBASE_AUTH);
         }
