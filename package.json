@@ -47,7 +47,8 @@
     "react-native-text-input-interactive": "^0.1.5",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
-    "react-native-youtube-iframe": "^2.3.0"
+    "react-native-youtube-iframe": "^2.3.0",
+    "expo-dev-client": "~3.3.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
