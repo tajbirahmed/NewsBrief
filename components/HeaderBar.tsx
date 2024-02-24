@@ -73,9 +73,9 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                 }
                 rightComponent={
                     <View style={[styles.headerRight, {paddingRight: 3, }]}>
-                        <TouchableOpacity style={{ paddingRight: 5, }}>
+                        {/* <TouchableOpacity style={{ paddingRight: 5, }}>
                             <Icon name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity style={{ paddingLeft: 7, }} onPress={() => {setShowAuthScreen(true)}}>
                             {user ? (
                                 <Image

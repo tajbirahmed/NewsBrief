@@ -22,6 +22,7 @@
     "@types/react-native-snap-carousel": "^3.8.10",
     "expo": "~50.0.7",
     "expo-av": "~13.10.5",
+    "expo-dev-client": "~3.3.8",
     "expo-font": "~11.10.2",
     "expo-image": "~1.10.6",
     "expo-image-picker": "~14.7.1",
@@ -37,6 +38,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.4",
+    "react-native-element-dropdown": "^2.10.1",
     "react-native-floating-label-input": "^1.4.3",
     "react-native-login-screen": "^5.0.0",
     "react-native-modal": "^13.0.1",
@@ -47,8 +49,7 @@
     "react-native-text-input-interactive": "^0.1.5",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
-    "react-native-youtube-iframe": "^2.3.0",
-    "expo-dev-client": "~3.3.8"
+    "react-native-youtube-iframe": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
