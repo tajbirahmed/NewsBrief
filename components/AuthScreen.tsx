@@ -266,7 +266,7 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
                                 <TextInput
                                     style={[styles.TextInput]}       
                                     color={'secondary'}
-                                    label="Email."
+                                    label={email.length ? "" : "Email"}
                                     variant="outlined"
                                     onChangeText={(email) => setEmail(email)}
                                 />
@@ -275,7 +275,7 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
                                 <TextInput
                                     style={[styles.TextInput]}
                                     color={'secondary'}
-                                    label="Password."
+                                    label={password.length ? "" : "Password"}
                                     variant="outlined"
                                     onChangeText={(password) => setPassword(password)}
                                 />
