@@ -49,18 +49,18 @@ const NewsCardRemastered = (options: PageProps) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const colorScheme = useColorScheme();
 
-    const [carouselItems, setCarouselItems] = useState<Result[]>(exampleNews);
+    const [carouselItems, setCarouselItems] = useState<Result[]>([]);
     const [loadMore, setLoadMore] = useState<boolean>(false);
     const [nextPage, setNextPage] = useState(''); 
     const [newsArticLoading, setnewsArticLoading] = useState<boolean>(false)
     useEffect(() => {
         setnewsArticLoading(true);
-        // fetchArticleData({
-        //     nextPage,
-        //     setNextPage, 
-        //     category: options.category
-        // }).then((e) => setCarouselItems((prev) => [...prev, ...e])).catch((e) => console.log(e)
-        // );
+        fetchArticleData({
+            nextPage,
+            setNextPage, 
+            category: options.category
+        }).then((e) => setCarouselItems((prev) => [...prev, ...e])).catch((e) => console.log(e)
+        );
         setnewsArticLoading(false);
     }, [loadMore])
     // const carouselItems: Result[] = options.options;
