@@ -152,7 +152,7 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
                                 variant="outlined"
                                 onChangeText={(user_name) => {
                                     setUserName(user_name)
-                                    if (user_name.length > 2 && currentNames.includes(userName)) setGotUniqueName(true);
+                                    if (user_name.length > 2 && !currentNames.includes(user_name)) setGotUniqueName(true);
                                     else setGotUniqueName(false);
                                 }}
                             />

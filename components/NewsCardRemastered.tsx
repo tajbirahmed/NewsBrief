@@ -54,14 +54,14 @@ const NewsCardRemastered = (options: PageProps) => {
     const [nextPage, setNextPage] = useState(''); 
     const [newsArticLoading, setnewsArticLoading] = useState<boolean>(false)
     useEffect(() => {
-        // setnewsArticLoading(true);
+        setnewsArticLoading(true);
         // fetchArticleData({
         //     nextPage,
         //     setNextPage, 
         //     category: options.category
         // }).then((e) => setCarouselItems((prev) => [...prev, ...e])).catch((e) => console.log(e)
         // );
-        // setnewsArticLoading(false);
+        setnewsArticLoading(false);
     }, [loadMore])
     // const carouselItems: Result[] = options.options;
     
@@ -71,20 +71,15 @@ const NewsCardRemastered = (options: PageProps) => {
             <>
                 <View
                     style={{
-                        backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
-                        borderRadius: 10,
-                        height: ScreenHeight / 3,
-                        padding: 5,
-                        marginLeft: 8,
-                        marginRight: 8,
-                        borderColor: colorScheme === 'dark' ? 'white' : 'black',
-                        borderWidth: 0.2,
+                        backgroundColor: colorScheme === 'dark' ? 'black' : 'white', borderRadius: 10,
+                        height: ScreenHeight / 3, padding: 5,
+                        marginLeft: 8, marginRight: 8,
+                        borderColor: colorScheme === 'dark' ? 'white' : 'black', borderWidth: 0.2,
                     }}
                 >
 
                     <TouchableOpacity style={{
-                        flex: 1,
-                        borderRadius: 10,
+                        flex: 1, borderRadius: 10,
                         width: '100%'
                     }} onPress={() => {
                         router.push({
@@ -93,8 +88,7 @@ const NewsCardRemastered = (options: PageProps) => {
                     }}>
                         <Image
                             style={{
-                                flex: 1,
-                                borderRadius: 10,
+                                flex: 1, borderRadius: 10,
                                 width: '100%'
                             }}
                             source={item.image_url}
@@ -106,10 +100,8 @@ const NewsCardRemastered = (options: PageProps) => {
                             numberOfLines={1}
                             ellipsizeMode="tail"
                             style={{
-                                fontSize: 18,
-                                fontWeight: '400',
-                                color: colorScheme === 'dark' ? 'white' : 'black',
-                                overflow: 'hidden',
+                                fontSize: 18, fontWeight: '400',
+                                color: colorScheme === 'dark' ? 'white' : 'black', overflow: 'hidden',
                             }}
                         >
                             {item.title}
@@ -118,7 +110,9 @@ const NewsCardRemastered = (options: PageProps) => {
 
                     <View style={styles.card_footer}>
                         <TouchableOpacity style={[styles.source_name]}>
-                            <Text style={[styles.source_name, { color: colorScheme === 'dark' ? 'white' : 'black' }]} numberOfLines={1}>{item.source_id}</Text>
+                            <Text style={[styles.source_name, { color: colorScheme === 'dark' ? 'white' : 'black' }]}
+                                numberOfLines={1}>{item.source_id}
+                            </Text>
                         </TouchableOpacity>
 
                     </View>
