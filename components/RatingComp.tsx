@@ -1,3 +1,4 @@
+import ShareScreen from '@/utils/ShareScreen';
 import { FontAwesome } from '@expo/vector-icons';
 import { Icon } from '@rneui/base';
 import React, { useState } from 'react'
@@ -53,7 +54,7 @@ const RatingComp = () => {
             </View>
             <View style={styles.like_container}>
                 <Text style={{ fontSize: 12, alignSelf: 'center' }}></Text>
-                <TouchableOpacity onPress={() => {  }}>
+                <TouchableOpacity onPress={async () => { await ShareScreen(); }}>
                     <Icon name='share' size={20} type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
                 </TouchableOpacity>
                 <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontSize: 10, fontWeight: '400', }}>Share</Text>

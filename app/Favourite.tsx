@@ -1,12 +1,30 @@
-import React from 'react'
-import { Text, View, useColorScheme } from 'react-native';
+import FavCardComp from '@/components/FavCardComp';
+import favArticle from '@/constants/favArticles';
+import { Result } from '@/types/NewsApiTypes';
+import React, { useState } from 'react'
+import { ScrollView, Text, View, useColorScheme } from 'react-native';
+
 
 const Home = () => {
   const colorScheme = useColorScheme(); 
+  const [favorites, setFavorites] = useState(favArticle)
   return (
-    <View style={{flex : 1, backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}>
-      <Text style={{ marginLeft: 10, color: colorScheme === 'dark' ? 'white' : 'black' }}>Your Favorites will Appear here!</Text>
-    </View>
+    <ScrollView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white', width: '100%'}}>
+      <Text style={{
+        color: colorScheme === 'dark' ? 'white' : 'black', alignSelf: 'center',
+        fontSize: 17, fontWeight: '500', 
+        marginBottom: 15,
+      }}>
+        Articles that were added as favotires
+      </Text>
+      {favArticle.map((item, index) => (
+        <FavCardComp
+          key={index}
+          title={item.title}
+          source={item.description} />
+      ))}
+        
+    </ScrollView>
   )
 }
 
