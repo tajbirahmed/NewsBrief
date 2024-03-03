@@ -67,6 +67,8 @@ const RootLayout = () => {
                     style={styles.drawer}
                     onDrawerOpen={() => {
                         // StatusBar.setHidden(true, 'fade');
+                        console.log(process.env.EXPO_PUBLIC_TEST);
+                        
                     }}
                     onDrawerClose={() => {
                         // StatusBar.setHidden(false, 'slide');
@@ -75,7 +77,7 @@ const RootLayout = () => {
                 
                     <View style={styles.header_container}>
                         <HeaderBar
-                            title={"News Brief"}
+                            title={"NewsBrief"}
                             drawer={drawer}
                             drawerClosed={drawerClosed}
                             setdrawerClosed={setdrawerClosed}

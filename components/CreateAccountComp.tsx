@@ -48,11 +48,11 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
         })
     }, [])
     useEffect(() => {
-        const userRef = collection(DB, 'users');
+        const userRef = collection(DB, 'User');
         getDocs(userRef)
             .then((snapshot) => {
                 snapshot.docs.forEach((doc) => {
-                    setCurrentNames((prev) => [doc.data().user_name, ...prev]);
+                    setCurrentNames((prev) => [doc.data().userName, ...prev]);
                 })
             })
             .catch(err => {
@@ -61,7 +61,7 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
             })
         console.log(currentNames);
 
-    }, [createAccount]);
+    }, []);
     
     useEffect(() => {
         function sleep(ms: number): Promise<void> {
@@ -282,7 +282,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }, 
     button: {
-        height: '100%',
+        height: '70%',
+        width: '50%',
         marginRight: 10,
         justifyContent: 'center',
         borderRadius: 20,

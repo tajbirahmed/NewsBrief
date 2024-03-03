@@ -62,11 +62,11 @@ const NewsCard = (options: PageProps) => {
                             transition={1000}
                         />
                         <Text
-                            numberOfLines={1}
+                            numberOfLines={2}
                             ellipsizeMode="tail"
                             style={{
-                                fontSize: 18,
-                                fontWeight: '400',
+                                fontSize: 18, fontFamily: 'serif',
+                                fontWeight: '700',
                                 color: colorScheme === 'dark' ? 'white' : 'black',
                                 overflow: 'hidden',
                             }}
@@ -77,7 +77,7 @@ const NewsCard = (options: PageProps) => {
                 
                 <View style={styles.card_footer}>
                     <TouchableOpacity style={[styles.source_name]}>
-                        <Text style={[styles.source_name, { color: colorScheme === 'dark' ? 'white' : 'black' }]} numberOfLines={1}>{item.source_id}</Text>
+                        <Text style={[styles.source_name, { fontStyle: 'italic',color: colorScheme === 'dark' ? 'white' : 'black' }]} numberOfLines={1}>{item.source_id}</Text>
                     </TouchableOpacity>
                     
                 </View>

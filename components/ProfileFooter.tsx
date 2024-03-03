@@ -26,6 +26,8 @@ const ProfileFooter = ({ title, iconName, iconType, selected, setSelected, path 
             <Pressable
                 onPress={() => {
                     setSelected(title);
+                    
+                    
                     title === "Home" ? router.push("/") :
                         title === "Explore" ? router.push("/Explore") :
                             title === "Favorite" ? router.push("/Favourite") :
@@ -48,7 +50,7 @@ const ProfileFooter = ({ title, iconName, iconType, selected, setSelected, path 
                                 <View style={[styles.footer_item_container, {marginBottom: 8, }]}>
                                     <Image
                                         style={{ width: 32, height: 32, borderRadius: 16, borderColor: 'blue', borderWidth: 3, }}
-                                        // placeholder={blurhash}
+                                        placeholder={blurhash}
                                         contentFit="cover"
                                         transition={1000}
                                         source={iconName}

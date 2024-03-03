@@ -1,7 +1,6 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, signOut, updateProfile } from "firebase/auth";
 import { DB, FIREBASE_AUTH } from "./FirebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage' 
 import { imageUploadFirebase } from "@/utils/imageUploadFirebase";
 import { getPhotoUrl } from "@/utils/getPhotoUrl";
 const actionCodeSettings = {
@@ -34,6 +33,7 @@ export const signUp = async ({
     setSignUpLoading(true);
     
     try {
+        await imageUploadFirebase(profilePhoto, userName);
         const response =
             await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
         await sendEmailVerification(response.user, actionCodeSettings);
@@ -42,11 +42,10 @@ export const signUp = async ({
             email: email, 
             dateJoined: new Date(),
         })
-        imageUploadFirebase(profilePhoto, userName);
         
         await updateProfile(response.user, {
             displayName: userName, 
-            photoURL: getPhotoUrl(profilePhoto, userName),
+            photoURL: profilePhoto
         }).catch((e: any) => console.log(e))
         if (!response.user.emailVerified) {
             signOut(FIREBASE_AUTH);

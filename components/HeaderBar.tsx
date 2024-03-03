@@ -59,7 +59,7 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                             }}
                         >
                             
-                                    <Icon name='menu' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                            <Icon name='menu' size={ 22 } type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
                         
                         </TouchableOpacity>
                     </View>
@@ -67,7 +67,7 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                 rightComponent={
                     <View style={[styles.headerRight, {paddingRight: 3, }]}>
                         <TouchableOpacity style={{ paddingRight: 5, }}>
-                            <Icon name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
+                            <Icon size={ 22 } name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
                         </TouchableOpacity>
                         
                     </View>
@@ -75,7 +75,7 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                 centerComponent={{
                     text: title, style: {
                         color: colorScheme === 'dark' ? 'white' : 'black', 
-                        fontSize: 22,
+                        fontSize: 20, fontFamily: 'monospace', 
                         fontWeight: 'bold',
                 } }}
             />

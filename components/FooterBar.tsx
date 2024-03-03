@@ -4,9 +4,10 @@ import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react'
 import { Text, Touchable, TouchableOpacity, View, useColorScheme, StyleSheet } from 'react-native'
 import FooterItem from './FooterItem';
-import { User, onAuthStateChanged } from 'firebase/auth';
+import { User, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
 import ProfileFooter from './ProfileFooter';
+import { getPhotoUrl } from '@/utils/getPhotoUrl';
 
 // Styling done for now, 
 // no functionality added, 
@@ -19,8 +20,14 @@ const FooterBar = () => {
     useEffect(() => {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
+            if (user !== null && user.photoURL !== null && user.displayName !== null) {
+                updateProfile(user, {
+                    displayName: getPhotoUrl(user.photoURL, user?.displayName)
+                })
+            }
+            
         })
-    }, [])
+    }, [colorScheme])
     return (
         <View style={ [styles.container, {backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}]}>
             <View style={styles.footer_container}>
