@@ -2,6 +2,8 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signOut, updateP
 import { DB, FIREBASE_AUTH } from "./FirebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage' 
+import { imageUploadFirebase } from "@/utils/imageUploadFirebase";
+import { getPhotoUrl } from "@/utils/getPhotoUrl";
 const actionCodeSettings = {
     url: 'https://newsbiref.firebaseapp.com',
     handleCodeInApp: true,
@@ -36,13 +38,15 @@ export const signUp = async ({
             await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
         await sendEmailVerification(response.user, actionCodeSettings);
         const docRef = await addDoc(collection(DB, 'User'), {
-            userName: userName,
+            userName: userName, 
+            email: email, 
+            dateJoined: new Date(),
         })
-        
+        imageUploadFirebase(profilePhoto, userName);
         
         await updateProfile(response.user, {
             displayName: userName, 
-            photoURL: profilePhoto,
+            photoURL: getPhotoUrl(profilePhoto, userName),
         }).catch((e: any) => console.log(e))
         if (!response.user.emailVerified) {
             signOut(FIREBASE_AUTH);

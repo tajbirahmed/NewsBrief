@@ -1,21 +1,12 @@
-import { DB, FIREBASE_AUTH } from '@/auth/FirebaseConfig';
-import { signIn } from '@/auth/signIn';
-import { signUp } from '@/auth/signUp';
-import { signout } from '@/auth/signou';
+import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
 import { createThreeButtonAlert } from '@/utils/createThreeButtonAlert';
 import { pickCameraAsync, pickImageAsync } from '@/utils/pickImageAsync';
-import { Icon } from '@rneui/base';
 import { User, onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, useColorScheme, ScrollView } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 
-import Modal from "react-native-modal";
 import { Image } from 'expo-image';
-import { TextInput } from '@react-native-material/core';
-import CreateAccountComp from '@/components/CreateAccountComp';
-import LoginAccountComp from '@/components/LoginAccountComp';
 
 
 // 1. Header title is not yet configured

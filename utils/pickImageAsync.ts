@@ -1,4 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
+import { imageUploadFirebase } from './imageUploadFirebase';
+import { getPhotoUrl } from './getPhotoUrl';
 
 export const pickImageAsync = async (): Promise<ImagePicker.ImagePickerSuccessResult | ImagePicker.ImagePickerCanceledResult> => {
 
@@ -10,7 +12,8 @@ export const pickImageAsync = async (): Promise<ImagePicker.ImagePickerSuccessRe
     if (result.canceled)
         alert('Pick an image, will you?')
     if (!result.canceled) {
-        
+        imageUploadFirebase(result.assets[0].uri, "abc");
+        getPhotoUrl(result.assets[0].uri, "abc");
     }
     
     
@@ -27,7 +30,8 @@ export const pickCameraAsync = async (): Promise<ImagePicker.ImagePickerSuccessR
     if (result.canceled)
         alert('Capture an image, will you?')
     if (!result.canceled) {
-        //
+        
+
     }
     return result;
 }

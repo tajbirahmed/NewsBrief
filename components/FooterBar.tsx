@@ -1,18 +1,26 @@
 import footerItems from '@/constants/FooterStaticData/FooterItems';
 import { Icon } from '@rneui/base';
 import { router } from 'expo-router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, Touchable, TouchableOpacity, View, useColorScheme, StyleSheet } from 'react-native'
 import FooterItem from './FooterItem';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
+import ProfileFooter from './ProfileFooter';
 
 // Styling done for now, 
 // no functionality added, 
 
 
 const FooterBar = () => {
-    const [selected, setSelected] = useState('');
+    const [selected, setSelected] = useState('Home');
     const colorScheme = useColorScheme();
-    
+    const [user, setUser] = useState<User | null>(null);
+    useEffect(() => {
+        onAuthStateChanged(FIREBASE_AUTH, (user) => {
+            setUser(user);
+        })
+    }, [])
     return (
         <View style={ [styles.container, {backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}]}>
             <View style={styles.footer_container}>
@@ -25,10 +33,18 @@ const FooterBar = () => {
                             iconType={value.iconType}
                             selected={selected}
                             setSelected={setSelected}
-                            path={ value.path}
+                            path={ value.path }
                         />
                     ))
                 }
+                <ProfileFooter 
+                    title={"Newsstand"}
+                    iconName={user?.photoURL}
+                    iconType={""}
+                    selected={selected}
+                    setSelected={setSelected}
+                    path={"/Newsstand"}
+                />
             </View>
         </View>
     )

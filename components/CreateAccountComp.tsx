@@ -78,7 +78,7 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
     }, [verificationLinkStatus]); 
 
     return (
-        <ScrollView style={{ width: '100%', marginTop: 50 }}>
+        <ScrollView style={{ width: '100%', paddingTop: 80, backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}>
 
             <View style={{
                 width: 200, alignSelf: 'center',
@@ -243,7 +243,7 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
 
                         </TouchableOpacity>
                 )}
-            <View style={{height: 200,}}>
+            <View style={{height: 500,}}>
                 <TouchableOpacity style={[styles.loginBtn, { marginTop: 5, }]}
                     onPress={() => setCreateAccount(false)}>
                     <Text style={{ color: colorScheme === 'dark' ? 'white' : 'black', fontWeight: '500' }}>Go Back</Text>

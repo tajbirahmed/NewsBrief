@@ -1,23 +1,26 @@
 import { Icon } from '@rneui/base';
+import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { Screen } from 'expo-router/build/views/Screen';
 import React, { useEffect } from 'react'
 import { View, Text, useColorScheme, Pressable, StyleSheet } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface FooterItemProps {
     title: string,
-    iconName: string,
+    iconName?: string | null,
     iconType: string,
     selected: string,
     setSelected: (selected: string) => void,
     path: string,
 }
+const blurhash =
+    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
-const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: FooterItemProps) => {
+const ProfileFooter = ({ title, iconName, iconType, selected, setSelected, path }: FooterItemProps) => {
     const colorScheme = useColorScheme();
-    useEffect(() => { 
+    useEffect(() => {
         setSelected('Home');
-    },[])
+    }, [])
     return (
         <View style={styles.footer}>
             <Pressable
@@ -32,18 +35,24 @@ const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: F
                 {
                     selected !== title ? (
                         <>
-                            <Icon name={iconName} type={iconType} color={colorScheme === 'dark' ? 'white' : 'black'} />
-                            {/* <Text style={[styles.title, colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }]}>
-                                {title}
-                            </Text> */}
+                            <Image
+                                style={{ width: 26, height: 26, borderRadius: 13, }}
+                                placeholder={blurhash}
+                                contentFit="cover"
+                                transition={1000}
+                                source={iconName}
+                            />
                         </>
                     ) : (
                         <>
-                           <View style={styles.selected_style}>
-                                    <Icon name={iconName} type={iconType} color={colorScheme === 'dark' ? 'blue' : 'blue'} size={32}/>
-                                    {/* <Text style={[styles.selected_style_title, colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }]}>
-                                    {title}
-                                </Text> */}
+                                <View style={[styles.footer_item_container, {marginBottom: 8, }]}>
+                                    <Image
+                                        style={{ width: 32, height: 32, borderRadius: 16, borderColor: 'blue', borderWidth: 3, }}
+                                        // placeholder={blurhash}
+                                        contentFit="cover"
+                                        transition={1000}
+                                        source={iconName}
+                                    />
                             </View>
                         </>
                     )
@@ -74,12 +83,12 @@ const styles = StyleSheet.create({
         fontSize: 8,
     },
     selected_style: {
-        flex: 1, 
+        flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
-        width: '70%', 
+        width: '70%',
         height: '70%',
-        paddingBottom: 10, 
+        paddingBottom: 10,
         borderRadius: 1000,
     },
     selected_style_title: {
@@ -92,4 +101,4 @@ const styles = StyleSheet.create({
 
 
 
-export default FooterItem; 
+export default ProfileFooter; 

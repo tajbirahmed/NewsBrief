@@ -27,7 +27,7 @@ const LoginAccountComp = ({ createAccount, setCreateAccount, email, setEmail, pa
 
 
     return (
-        <View style={{ flex: 1, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', marginTop: 50}} >
+        <ScrollView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white', paddingTop: 140 }} >
             <View style={{ width: '100%', height: 'auto', marginTop: 10, }}>
                 <Text style={{
                     marginBottom: 25, marginTop: 10,
@@ -45,7 +45,7 @@ const LoginAccountComp = ({ createAccount, setCreateAccount, email, setEmail, pa
                     color: colorScheme === 'dark' ? 'white' : 'black',
                 }}>Log In</Text>
             </View>
-            <KeyboardAvoidingView behavior='position'>
+            <KeyboardAvoidingView behavior='padding'>
                 <View style={[styles.inputView]}>
                     <TextInput
                         style={[styles.TextInput]}
@@ -99,7 +99,7 @@ const LoginAccountComp = ({ createAccount, setCreateAccount, email, setEmail, pa
             <View style={{height: 600}}>
 
             </View>
-        </View>
+        </ScrollView>
     )
 }
 const styles = StyleSheet.create({
