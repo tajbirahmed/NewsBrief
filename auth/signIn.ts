@@ -4,8 +4,6 @@ import { FIREBASE_AUTH } from "./FirebaseConfig";
 interface SignInProps {
     loading: boolean,
     setLoading: (loading: boolean) => void,
-    showAuthScreen: boolean,
-    setShowAuthScreen: (showAuthScreen: boolean) => void,
     email: string,
     password: string,
 }
@@ -13,8 +11,6 @@ interface SignInProps {
 export const signIn = async ({
     loading,
     setLoading,
-    showAuthScreen,
-    setShowAuthScreen,
     email,
     password
 }: SignInProps) => {
@@ -24,8 +20,7 @@ export const signIn = async ({
         if (!response.user.emailVerified) {
             alert('Verify Email!'); 
             signOut(FIREBASE_AUTH);
-        } else
-            setShowAuthScreen(false);
+        } 
     } catch (error: any) {
         console.log(error);
         alert('Check your emails');

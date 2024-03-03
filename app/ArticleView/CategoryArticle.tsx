@@ -19,11 +19,11 @@ const CategoryArticle = () => {
     useEffect(() => {
         if (nextPage === '') setFLoading(true);
         if (nextPage !== '') setLoading(true); 
-        fetchArticleData({
-            nextPage,
-            setNextPage,
-            category,
-        }).then((e) => setArticles((prev) => [...prev, ...e]));
+        // fetchArticleData({
+        //     nextPage,
+        //     setNextPage,
+        //     category,
+        // }).then((e) => setArticles((prev) => [...prev, ...e]));
         setFLoading(false);
         setLoading(false);
     }, [loadMore])

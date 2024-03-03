@@ -43,8 +43,6 @@ const AuthScreen = ({ showAuthScreen, setShowAuthScreen }: AuthScreenProps) => {
     useEffect(() => {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
-            console.log(user?.email);
-
         })
     }, [])
     useEffect(() => { 

@@ -3,11 +3,15 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { DrawerLayoutAndroid, ScrollView, StatusBar, TouchableOpacity, useColorScheme, StyleSheet } from 'react-native';
 import HeaderBar from '@/components/HeaderBar';
 import { Slot } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text } from 'react-native';
 import FooterBar from '@/components/FooterBar';
 import SideMenu from '@/components/SideMenuComponents/SideMenu';
 import AuthScreen from '@/components/AuthScreen';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
+import CreateAccountComp from '@/components/CreateAccountComp';
+import LoginAccountComp from '@/components/LoginAccountComp';
 
 
 
@@ -15,15 +19,40 @@ const RootLayout = () => {
     const colorScheme = useColorScheme();
     const drawer = useRef<DrawerLayoutAndroid>(null);
     const [drawerClosed, setdrawerClosed] = useState(true); 
+    const bgVal = colorScheme === 'dark' ? 'black' : 'white';
+    const [user, setUser] = useState<User | null>(null);
+    const [createAccount, setCreateAccount] = useState(false);
     const [showAuthScreen, setShowAuthScreen] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    useEffect(() => {
+        onAuthStateChanged(FIREBASE_AUTH, (user) => {
+            setUser(user);
+        })
+    }, [])
     return (
         
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            {showAuthScreen ? (
-                <AuthScreen
-                    showAuthScreen={showAuthScreen}
-                    setShowAuthScreen={ setShowAuthScreen}
-                />
+            {createAccount ? (
+                <>
+                    <CreateAccountComp
+                        createAccount={createAccount}
+                        setCreateAccount={setCreateAccount}
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                    />
+                </>
+            ) : !user?.emailVerified && !createAccount ? (
+                    <LoginAccountComp
+                        createAccount={createAccount}
+                        setCreateAccount={setCreateAccount}
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                    />
             ) : (<>
             <View style={{
                 flex: 1,

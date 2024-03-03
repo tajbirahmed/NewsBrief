@@ -39,14 +39,7 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
     showAuthScreen, 
     setShowAuthScreen,
 }) => {
-    const [user, setUser] = useState<User | null>(null); 
-    useEffect(() => {
-        onAuthStateChanged(FIREBASE_AUTH, (user) => {
-            setUser(user);
-            console.log(user?.photoURL);
-            
-        })
-    }); 
+     
     const colorScheme = useColorScheme();  
     return (
         <SafeAreaProvider >
@@ -73,17 +66,10 @@ const HeaderBar: React.FunctionComponent<HeaderComponentProps> = ({
                 }
                 rightComponent={
                     <View style={[styles.headerRight, {paddingRight: 3, }]}>
-                        {/* <TouchableOpacity style={{ paddingRight: 5, }}>
+                        <TouchableOpacity style={{ paddingRight: 5, }}>
                             <Icon name='search' type='material' color={colorScheme === 'dark' ? 'white' : 'black'} />
-                        </TouchableOpacity> */}
-                        <TouchableOpacity style={{ paddingLeft: 7, }} onPress={() => {setShowAuthScreen(true)}}>
-                            {user ? (
-                                <Image
-                                    style={{ width: 30, height: 30, borderRadius: 15, }}
-                                    source={user.photoURL}
-                                />)
-                                : (<Icon name='user' type='font-awesome' color={colorScheme === 'dark' ? 'white' : 'black'} />)}
                         </TouchableOpacity>
+                        
                     </View>
                 }
                 centerComponent={{

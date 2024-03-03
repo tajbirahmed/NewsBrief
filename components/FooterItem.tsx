@@ -33,17 +33,17 @@ const FooterItem = ({ title, iconName, iconType, selected, setSelected, path}: F
                     selected !== title ? (
                         <>
                             <Icon name={iconName} type={iconType} color={colorScheme === 'dark' ? 'white' : 'black'} />
-                            <Text style={[styles.title, colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }]}>
+                            {/* <Text style={[styles.title, colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }]}>
                                 {title}
-                            </Text>
+                            </Text> */}
                         </>
                     ) : (
                         <>
                            <View style={styles.selected_style}>
-                                    <Icon name={iconName} type={iconType} color={colorScheme === 'dark' ? 'white' : 'black'} size={35}/>
-                                    <Text style={[styles.selected_style_title, colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }]}>
+                                    <Icon name={iconName} type={iconType} color={colorScheme === 'dark' ? 'blue' : 'blue'} size={32}/>
+                                    {/* <Text style={[styles.selected_style_title, colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }]}>
                                     {title}
-                                </Text>
+                                </Text> */}
                             </View>
                         </>
                     )
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     title: {
         alignSelf: 'center',
-        fontSize: 10,
+        fontSize: 8,
     },
     selected_style: {
         flex: 1, 
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
     },
     selected_style_title: {
-        fontSize: 11,
+        fontSize: 9,
         textAlign: 'center',
         fontWeight: '800',
     }

@@ -54,13 +54,13 @@ const NewsCardRemastered = (options: PageProps) => {
     const [nextPage, setNextPage] = useState(''); 
     const [newsArticLoading, setnewsArticLoading] = useState<boolean>(false)
     useEffect(() => {
-        setnewsArticLoading(true);
-        fetchArticleData({
-            nextPage,
-            setNextPage, 
-            category: options.category
-        }).then((e) => setCarouselItems((prev) => [...prev, ...e])).catch((e) => console.log(e)
-        );
+        // setnewsArticLoading(true);
+        // fetchArticleData({
+        //     nextPage,
+        //     setNextPage, 
+        //     category: options.category
+        // }).then((e) => setCarouselItems((prev) => [...prev, ...e])).catch((e) => console.log(e)
+        // );
         setnewsArticLoading(false);
     }, [loadMore])
     // const carouselItems: Result[] = options.options;

@@ -55,11 +55,11 @@ const Home = () => {
 	useEffect(() => { 
 		loadMoreData === 0 ? setFirstLoading(true) : null;
 		setGeneralLoading(true);
-		fetchArticleData({
-			nextPage,
-			setNextPage, 
-			category, 
-		}).then((e) => setResult((prev) => [...prev, ...e])); 
+		// fetchArticleData({
+		// 	nextPage,
+		// 	setNextPage, 
+		// 	category, 
+		// }).then((e) => setResult((prev) => [...prev, ...e])); 
 		loadMoreData === 0 ? setFirstLoading(false) : null;
 		setGeneralLoading(false);
 	}, [loadMoreData])
