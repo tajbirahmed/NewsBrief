@@ -14,20 +14,15 @@ import { getPhotoUrl } from '@/utils/getPhotoUrl';
 
 
 const FooterBar = () => {
-    const [selected, setSelected] = useState('Home');
+    const [selected, setSelected] = useState('');
     const colorScheme = useColorScheme();
     const [user, setUser] = useState<User | null>(null);
     useEffect(() => {
-        onAuthStateChanged(FIREBASE_AUTH, (user) => {
-            setUser(user);
-            if (user !== null && user.photoURL !== null && user.displayName !== null) {
-                updateProfile(user, {
-                    displayName: getPhotoUrl(user.photoURL, user?.displayName)
-                })
-            }
-            
-        })
-    }, [colorScheme])
+        const user = FIREBASE_AUTH.currentUser;
+        setUser(user);
+        console.log(user);
+        setSelected('Home');
+    }, [])
     return (
         <View style={ [styles.container, {backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}]}>
             <View style={styles.footer_container}>
