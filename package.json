@@ -52,7 +52,8 @@
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
     "react-native-youtube-iframe": "^2.3.0",
-    "expo-location": "~16.5.5"
+    "expo-location": "~16.5.5",
+    "react-native-maps": "1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

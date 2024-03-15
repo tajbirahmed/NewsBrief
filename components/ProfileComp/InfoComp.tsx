@@ -9,6 +9,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import * as Location from 'expo-location';
 import { Icon } from '@rneui/base';
+import MapViewModal from './MapViewModal';
 export interface PageProps {
     title: string,
     icon?: boolean,
@@ -34,6 +35,7 @@ const InfoComp = (props: PageProps) => {
     const [phone, setPhone] = useState('+880')
     const [isValidPhone, setIsValidPhone] = useState<boolean>(true);
     const [locationLoading, setLocationLoading] = useState(false); 
+    const [showLocDialog, setshowLocDialog] = useState<boolean>(false);
     const onChange = (event: DateTimePickerEvent, selectedDate: Date) => {
         const currentDate = selectedDate;
         if (props.setDateOfBirth !== undefined)
@@ -88,6 +90,14 @@ const InfoComp = (props: PageProps) => {
     }
         
     return (
+        <>
+            {showLocDialog && props.lat && props.lon && <MapViewModal
+                show={showLocDialog}
+                setShow={setshowLocDialog}
+                lat={props.lat}
+                lon={ props.lon}
+                                />
+            }
         <View style={{
             width: '100%', marginHorizontal: 10, marginTop: 8, paddingLeft: 10, paddingRight: 20, display: 'flex',
             flexDirection: 'row', justifyContent: 'space-between', marginVertical: 3,
@@ -115,20 +125,28 @@ const InfoComp = (props: PageProps) => {
                     {props.value}
                 </Text>
             ) : props.title === 'Location' && props.lat && props.lon ? (
-                    <TouchableOpacity style={styles.loginBtn}
-                        onPress={() => {
-                            const { lat, lon } = props;
-                            if (lat && lon) {
-                                const browser_url =
-                                    "https://www.google.com/maps?q=loc:" +
-                                    lat +
-                                    "," +
-                                    lon;
-                                Linking.openURL(browser_url);
-                            }
-                        }}>
-                        <Text style={{ color: 'white', fontWeight: '500' }}>Open in Browser</Text>
-                    </TouchableOpacity>
+                    <View style={{display:'flex', alignSelf: 'center', flexDirection: 'row', justifyContent: 'flex-end'}}>
+                        <TouchableOpacity style={[styles.loginBtn, {paddingRight: 2,}]}
+                            onPress={() => {
+                                const { lat, lon } = props;
+                                if (lat && lon) {
+                                    const browser_url =
+                                        "https://www.google.com/maps?q=loc:" +
+                                        lat +
+                                        "," +
+                                        lon;
+                                    Linking.openURL(browser_url);
+                                }
+                            }}>
+                            <Text style={{ color: 'white', fontWeight: '500' }}>Open in Browser</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.loginBtn, {marginLeft: 10,}]}
+                            onPress={() => {
+                                setshowLocDialog(!showLocDialog);
+                            }}>
+                                <Text style={{ color: 'white', fontWeight: '500', alignItems: 'center' }}>View in  { "\n " } App</Text>
+                        </TouchableOpacity>
+                    </View>
             ):(
                 <TouchableOpacity onPress={() => {
                     setTextInput(true);
@@ -182,7 +200,8 @@ const InfoComp = (props: PageProps) => {
                 </TouchableOpacity>
             )
             }
-        </View>
+            </View>
+        </>
     )
 }
 

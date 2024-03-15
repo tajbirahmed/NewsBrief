@@ -9,7 +9,7 @@
 7. Interactive real-time rating options for each post or for your site/app.
 8. **Pagination**[completed].
 9. **Playing audio/videos that are embedded on your site but obtained from external databases not your own. For example, playing the youtube video embedded on your site.** [completed]
-10. **Google map with real-time location information or at least embed maps Iframe.**
+10. **Google map with real-time location information or at least embed maps Iframe.**[completed]
   [access token is not freely available for google maps, an workaround!] [**need-to-verify**]
 11. **Using Session information during the login/logout phase.**[completed]
 12. Application of TensorFlow Lite for real-time prediction.
