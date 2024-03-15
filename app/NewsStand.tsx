@@ -11,6 +11,7 @@ import { ScreenHeight } from '@rneui/base';
 import InfoComp from '@/components/ProfileComp/InfoComp';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import getMonthName from '@/utils/getMonthName';
+import { signout } from '@/auth/signout';
 
 // 1. Header title is not yet configured
 // verdict: not completed
@@ -25,6 +26,9 @@ const NewsStand = () => {
     const [createAccount, setCreateAccount] = useState(true);
     const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined);
     const [dateOfBirth, setDateOfBirth] = useState<Date>(initialDate);
+    const [lat, setLat] = useState<string | undefined>(undefined);
+    const [lon, setLon] = useState<string | undefined>(undefined);
+    const [signOutLoading, setSignOutLoading] = useState(false);
     useEffect(() => {
         const user = FIREBASE_AUTH.currentUser;
         setUser(user);
@@ -42,6 +46,11 @@ const NewsStand = () => {
                             const firebaseTimestamp: Timestamp = e.data().dateOfBirth;
                             const date: Date = firebaseTimestamp.toDate();
                             setDateOfBirth(date);
+                        }
+                        if (e.data().latitude && e.data().longtitude) { 
+                            setLat(e.data().latitude);
+                            setLon(e.data().longtitude);
+                            console.log(e.data().latitude);
                         }
                     }
                 })
@@ -100,16 +109,40 @@ const NewsStand = () => {
                     />
                     <InfoComp
                         title='Location'
+                        lat={lat}
+                        setLat={setLat}
+                        lon={lon}
+                        setLon={setLon}
+                        
                     />
                     <InfoComp
                         title='Date of Birth'
-                        value={"" + dateOfBirth.getDate() + " " + getMonthName(dateOfBirth.getMonth()) + " " + dateOfBirth.getFullYear()}
-                        defaultDateValue={"" + initialDate.getDate() + " " + getMonthName(initialDate.getMonth()) + " " + initialDate.getFullYear()}
+                        value={"" + dateOfBirth.getDate() + " " + getMonthName(dateOfBirth.getMonth()) + ", " + dateOfBirth.getFullYear()}
+                        defaultDateValue={"" + initialDate.getDate() + " " + getMonthName(initialDate.getMonth()) + ", " + initialDate.getFullYear()}
                         dateOfBirth={dateOfBirth}
                         setDateOfBirth={setDateOfBirth}
                     />
                     
                 </View>
+            </View>
+            <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', paddingTop: 25, paddingBottom: 30}}>
+                <TouchableOpacity style={styles.loginBtn}
+                    onPress={() => {
+                        signout({
+                            signOutLoading,
+                            setSignOutLoading
+                        });
+                    }}
+                >
+                    <Text style={{ color: 'white', fontWeight: '500' }}>
+                        {!signOutLoading ? "Log Out" : 
+                            <>
+                                <ActivityIndicator size="large" color={colorScheme === 'dark' ? 'white' : 'black'} /> 
+                                <Text style={{ color: 'white', fontWeight: '500' }}>"Loggin out"</Text>
+                            </>
+                        } 
+                    </Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     )
@@ -121,5 +154,14 @@ const styles = StyleSheet.create({
     container: {
         overflow: 'scroll',
     }, 
-    
+    loginBtn: {
+        width: "45%",
+        borderRadius: 40,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "darkturquoise",
+        alignSelf: 'center',
+        fontWeight: '600',
+    }
 })

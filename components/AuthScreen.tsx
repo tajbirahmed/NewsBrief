@@ -1,7 +1,7 @@
 import { DB, FIREBASE_AUTH } from '@/auth/FirebaseConfig';
 import { signIn } from '@/auth/signIn';
 import { signUp } from '@/auth/signUp';
-import { signout } from '@/auth/signou';
+import { signout } from '@/auth/signout';
 import { createThreeButtonAlert } from '@/utils/createThreeButtonAlert';
 import { pickCameraAsync, pickImageAsync } from '@/utils/pickImageAsync';
 import { Icon } from '@rneui/base';

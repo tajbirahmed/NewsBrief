@@ -10,7 +10,7 @@ import { setStatusBarHidden } from 'expo-status-bar'
 import { ResizeMode, Video } from 'expo-av';
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { isYouTubeLink } from '@/utils/isYoutube'
-// import YoutubePlayer from "react-native-youtube-iframe";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
@@ -80,11 +80,11 @@ const Home = ({ }) => {
                 {"    " + exampleArticle.description}
             </Paragraph>
             {exampleArticle.video_url && isYouTubeLink(exampleArticle.video_url) ? (<View>
-                {/* <YoutubePlayer
+                <YoutubePlayer
                     height={300}
                     play={true}
                     videoId={"YQPeKqWWm7M"}
-                /> */}
+                />
                 </View>
             ) : exampleArticle.video_url && !isYouTubeLink(exampleArticle.video_url) ? (
                     <View style={ styles.video_container}>
