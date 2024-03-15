@@ -4,10 +4,10 @@ import { NEWSDATAIO } from "./secretKeys/secret";
 
 export async function fetchArticleData(
     { nextPage, setNextPage, category }: PaginationProps): Promise<Result[]> {
-    let API_URL = `https://newsdata.io/api/1/news?apikey=${NEWSDATAIO}&language=en`
+    let API_URL = `https://newsdata.io/api/1/news?apikey=${NEWSDATAIO}&country=bd,us,gb,ru,in&language=en&prioritydomain=medium`
     if (nextPage !== '')
         API_URL = `https://newsdata.io/api/1/news?apikey=${NEWSDATAIO}&language=en&page=${nextPage}`
-    if (category) API_URL += "&category=" + category; 
+    if (category !== '') API_URL += "&category=" + category; 
     console.log(API_URL);
     
     try {

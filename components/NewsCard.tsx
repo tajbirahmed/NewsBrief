@@ -23,7 +23,13 @@ const NewsCard = (options: PageProps) => {
             ...options.options,
         }
     ];
+    const handleArticleClick = () => { 
 
+        
+        router.push({
+            pathname: '/ArticleView/'
+        })
+    }
     const renderItem = ({ item, index }: { item: Result; index: number }) => {
 
         return (
@@ -46,9 +52,7 @@ const NewsCard = (options: PageProps) => {
                     borderRadius: 10,
                     width: '100%'
                 }} onPress={() => {
-                    router.push({
-                        pathname: '/ArticleView/'
-                    })
+                    handleArticleClick();
                 }}>
                         <Image
                             style={{
@@ -77,7 +81,9 @@ const NewsCard = (options: PageProps) => {
                 
                 <View style={styles.card_footer}>
                     <TouchableOpacity style={[styles.source_name]}>
-                        <Text style={[styles.source_name, { fontStyle: 'italic',color: colorScheme === 'dark' ? 'white' : 'black' }]} numberOfLines={1}>{item.source_id}</Text>
+                        <Text style={[styles.source_name, { fontStyle: 'italic', color: colorScheme === 'dark' ? 'white' : 'black' }]}
+                            numberOfLines={1}>{item.source_id}
+                        </Text>
                     </TouchableOpacity>
                     
                 </View>

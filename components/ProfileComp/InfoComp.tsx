@@ -1,9 +1,12 @@
 import { DB, FIREBASE_AUTH, FIREBASE_STORAGE } from '@/auth/FirebaseConfig';
 import { TextInput } from '@react-native-material/core';
 import { collection, query, where, getDocs, setDoc, doc, updateDoc } from "firebase/firestore";
-import { User, Pencil, MailCheck, Phone, MapPin } from 'lucide-react-native';
+import { User, Pencil, MailCheck, Phone, MapPin, Calendar } from 'lucide-react-native';
 import React, { useState } from 'react'
 import { View, Text, useColorScheme, TouchableOpacity, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 export interface PageProps {
 	title: string,
@@ -11,6 +14,9 @@ export interface PageProps {
 	value?: string | null,
 	phoneNumber?: string | undefined,
 	setPhoneNumber?: (phoneNumber: string) => void,
+	dateOfBirth?: Date | undefined, 
+    setDateOfBirth?: (dateOfBirth: Date) => void, 
+    defaultDateValue?: string, 
 }
 
 
@@ -21,7 +27,12 @@ const InfoComp = (props: PageProps) => {
 	const bgVal = colorScheme === 'dark' ? 'black' : 'white';
 	const [textInput, setTextInput] = useState<boolean>(false);
 	const [phone, setPhone] = useState('+880')
-	const [isValidPhone, setIsValidPhone] = useState<boolean>(true)
+    const [isValidPhone, setIsValidPhone] = useState<boolean>(true); 
+    const onChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+        const currentDate = selectedDate;
+        if (props.setDateOfBirth !== undefined)
+            props.setDateOfBirth(selectedDate);
+    };
 	const addPhone = async () => {
 		const user = FIREBASE_AUTH.currentUser;
 		if (isValidBangladeshPhoneNumber(phone) && user?.email) {
@@ -33,6 +44,16 @@ const InfoComp = (props: PageProps) => {
 		} else {
 			alert('Check phone no.')
 		}
+	}
+	const addBirthDate = async (date : Date) => { 
+		const user = FIREBASE_AUTH.currentUser;
+		if (user?.email) {
+			const docRef = await updateDoc(doc(DB, 'User', user.email.toLowerCase()), {
+				dateOfBirth: date,
+			})
+		}
+		setTextInput(false);
+		
 	}
 	function isValidBangladeshPhoneNumber(input: string): boolean {
 		const pattern = /^\+880\d{10}$/;
@@ -59,7 +80,7 @@ const InfoComp = (props: PageProps) => {
 					{props.title}
 				</Text>
 			</View>
-			{props.value ? (
+			{props.title !== 'Date of Birth' && props.value || props.title === 'Date of Birth' && props.value !== props.defaultDateValue ? (
 				<Text style={{ color: colVal, fontWeight: '600', fontSize: 16 }}>
 					{props.value}
 				</Text>
@@ -68,8 +89,12 @@ const InfoComp = (props: PageProps) => {
 					setTextInput(true);
 				}} style={{}}>
 					{!textInput ? (
-						<Pencil size={16} color={colorScheme === 'dark' ? 'white' : 'black'} />
-					) : (
+							props.title === 'Date of Birth' ? <Calendar size={16} color={colorScheme === 'dark' ? 'white' : 'black'} /> :
+								props.title === 'Location' ? ( 
+									<MapPin size={16} color={colorScheme === 'dark' ? 'white' : 'black'} />
+								):
+								(<Pencil size={16} color={colorScheme === 'dark' ? 'white' : 'black'} />) 
+                        ) : props.title === 'Phone' ? (
 						<View style={{ width: 300, alignSelf: 'flex-end' }}>
 							<TextInput
 								style={[styles.TextInput, { alignSelf: 'flex-end', }]}
@@ -82,11 +107,24 @@ const InfoComp = (props: PageProps) => {
 								value={phone}
 								keyboardType="numeric"
 								onSubmitEditing={() => {
-									addPhone()
+									if (props.title === 'Phone')
+										addPhone()
 								}}
 							/>
 						</View>
-					)}
+                            ) : props.title === 'Date of Birth' && props.dateOfBirth ? (
+                                    <SafeAreaView>
+                                        <RNDateTimePicker
+                                            value={props.dateOfBirth}
+                                            onChange={(event, date) => { 
+																							if (props.setDateOfBirth !== undefined && date !== undefined) {
+																								props.setDateOfBirth(date)
+																								addBirthDate(date);
+																							}
+                                            }}
+                                        />
+                                    </SafeAreaView>
+                    ) : (null)}
 				</TouchableOpacity>
 			)
 			}

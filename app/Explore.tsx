@@ -13,35 +13,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 // 1. correct newsCategory.map
 
 
-export const exampleNews: Result[] = [
-	{
-		title: "India taking up issues of pending salaries in Gulf countries",
-		link: "https://www.sentinelassam.com/national-news/india-taking-up-issues-of-pending-salaries-in-gulf-countries-576449",
-		keywords: [
-			"National News,More"
-		],
-		creator: [
-			"Sentinel Digital Desk"
-		],
-		video_url: null,
-		source_url: "",
-		description: "External Affairs Minister S. Jaishankar on Thursday said that the government has taken up the issue of pending salaries of Indian workers with the Gulf countries.",
-		content: "NEW DELHI: External Affairs Minister S. Jaishankar on Thursday said that the government has taken up the issue of pending salaries of Indian workers with the Gulf countries.Responding to a question about loss of wages of Indians working abroad, the Minister said that the data of pending salaries was not available but he took up the matter with Gulf countries. \"Would like to assure that employment is retained, wages are paid, and welfare is ensured,\" Jaishankar said. He also said that the government's objective is to get as many workers as possible back to work and he has been in touch with the concerned authorities and also through Ambassadors in the Gulf countries. Jaishankar also informed the House that Prime Minister Narendra Modi is also in touch with the Gulf governments and had 16 telephonic conversations with the authorities. He said he himself visited these countries and Minister of State for External Affairs V. Muraleedharan has also visited the gulf countries and had meetings with the authorities there. He also informed that a corpus of Rs 47 crore under the Indian Community Welfare Fund has been created for helping Indian workers there. In case of the death of an Indian worker, the Ministry of External Affairs through the Ambassador posted there, tries to get ex-gratia compensation paid to the worker's family from the local government or the employer company. Earlier, AITMC member Santanu Sen raised the issue of a wrong map on the World Health Organisation (WHO) site to which Chairman M. Venkaiah asked the EAM to look into. The TMC member said that as a doctor he checks the WHO COVID-19 site for data. The map on the site showed parts of Jammu and Kashmir and Arunachal Pradesh as outside India. He says the government should have been vigilant, when they are using Pegasus to spy on their own ministers, Sen quipped. Responding to the question on the number of women judges in the country, Law and Justice Minister Kiren Rijiju informs the House, out of a total 34 judges in the Supreme Court, we have for the first time four women judges. Out of 1,098 judges in High Courts, we have 83 women judges. \"We have been stressing time and again that while recommending names, preferences may be given to women, backward classes, scheduled caste and scheduled tribe,\" Rijiju further said. Responding to a question that there was no woman judge in the Patna High Court, he said that the Ministry has requested all high courts to send bigger number of women for appointment of judges in the high courts of the country in future. BJP member Vikas Mahatme raised the issue of tax collected through sale of alcohol and said that the states are getting addicted to tax being collected from this source. Describing it as 'Sin Tax items', Mahatme said, \"The tax being collected should be increased. Delhi and Maharashtra have brought in various changes including home delivery in Delhi and sale in malls in Maharashtra. State governments are getting addicted to tax collection from this item.\" (IANS) Also Read:  Jaishankar calls Qatari counterpart; discusses AfghanistanAlso watch:",
-		pubDate: "2022-02-04 08:53:39",
-		full_description: "NEW DELHI: External Affairs Minister S. Jaishankar on Thursday said that the government has taken up the issue of pending salaries of Indian workers with the Gulf countries. Responding to a question about loss of wages of Indians working abroad, the Minister said that the data of pending salaries was not available but he took up the matter with Gulf countries. \"Would like to assure that employment is retained, wages are paid, and welfare is ensured,\" Jaishankar said. He also said that the government's objective is to get as many workers as possible back to work and he has been in touch with the concerned authorities and also through Ambassadors in the Gulf countries. Jaishankar also informed the House that Prime Minister Narendra Modi is also in touch with the Gulf governments and had 16 telephonic conversations with the authorities. He said he himself visited these countries and Minister of State for External Affairs V. Muraleedharan has also visited the gulf countries and had meetings with the authorities there. He also informed that a corpus of Rs 47 crore under the Indian Community Welfare Fund has been created for helping Indian workers there. In case of the death of an Indian worker, the Ministry of External Affairs through the Ambassador posted there, tries to get ex-gratia compensation paid to the worker's family from the local government or the employer company. Earlier, AITMC member Santanu Sen raised the issue of a wrong map on the World Health Organisation (WHO) site to which Chairman M. Venkaiah asked the EAM to look into. The TMC member said that as a doctor he checks the WHO COVID-19 site for data. The map on the site showed parts of Jammu and Kashmir and Arunachal Pradesh as outside India. He says the government should have been vigilant, when they are using Pegasus to spy on their own ministers, Sen quipped. Responding to the question on the number of women judges in the country, Law and Justice Minister Kiren Rijiju informs the House, out of a total 34 judges in the Supreme Court, we have for the first time four women judges. Out of 1,098 judges in High Courts, we have 83 women judges. \"We have been stressing time and again that while recommending names, preferences may be given to women, backward classes, scheduled caste and scheduled tribe,\" Rijiju further said. Responding to a question that there was no woman judge in the Patna High Court, he said that the Ministry has requested all high courts to send bigger number of women for appointment of judges in the high courts of the country in future. BJP member Vikas Mahatme raised the issue of tax collected through sale of alcohol and said that the states are getting addicted to tax being collected from this source. Describing it as 'Sin Tax items', Mahatme said, \"The tax being collected should be increased. Delhi and Maharashtra have brought in various changes including home delivery in Delhi and sale in malls in Maharashtra. State governments are getting addicted to tax collection from this item.\" (IANS) Also Read: Jaishankar calls Qatari counterpart; discusses Afghanistan Also watch:",
-		image_url: "https://assets.sentinelassam.com/h-upload/2022/02/04/500x300_307612-jsha.jpg",
-		source_id: "sentinel",
-		country: [
-			"india"
-		],
-		category: [
-			"top"
-		],
-		language: "english"
-	},
-
-]
-
 
 const Home = () => {
 	const colorScheme = useColorScheme();
@@ -49,21 +20,26 @@ const Home = () => {
 	// for news api 
 	const [result, setResult] = useState<Result[]>([]);
 	const [pageResult, setPageResult] = useState<Result[]>([]);
-	const [number, setNumber] = useState<number[]>([1, 2]);
+	const [number, setNumber] = useState<number[]>([1, 2, 3]);
 	const [nextPage, setNextPage] = useState('');
 	const [loadMoreData, setLoadMoreData] = useState(1);
 	const [firstLoading, setFirstLoading] = useState(false);
 	const [generalLoading, setGeneralLoading] = useState(false);
-	const category = 'top';
-	const fetchResult = () => { 
-		// fetchArticleData({
-		// 	nextPage,
-		// 	setNextPage,
-		// 	category,
-		// }).then((e) => {
-		// 	setResult((prev) => [...prev, ...e])
-		// });
+	const [category, setCategory] = useState('top');
+	const fetchResult = async () => {
+		try {
+			// const e = await fetchArticleData({
+			// 	nextPage,
+			// 	setNextPage,
+			// 	category,
+			// });
+
+			// setResult((prev) => [...prev, ...e]);
+		} catch (error) {
+			console.error('Error fetching article data: explore.tsx', error);
+		}
 	}
+
 	
 	useEffect(() => {
 		// loadMoreData === 1 ? setFirstLoading(true) : null;
@@ -72,21 +48,25 @@ const Home = () => {
 		
 		// pagination
 		let j = 0;
-		if (result.length <= loadMoreData * 10) {
+		if (result.length <= (loadMoreData - 1) * 10 || pageResult.length === 0) {
 			fetchResult();
-			console.log("here");
-			
+		}
+		if (result.length <= (loadMoreData - 1) * 10 || pageResult.length === 0) {
+			fetchResult();
 		}
 		const thisPageres: Result[] = result.slice((loadMoreData - 1)* 10, (loadMoreData) * 10 - 1);
 		
 		// loadMoreData === 1 ? setFirstLoading(false) : null;
 		setPageResult(thisPageres);
 		setGeneralLoading(false);
-	}, [loadMoreData]); 
+	}, [loadMoreData, result]); 
 	const updateIndex = (loadMoreData: number) => {
 		console.log(loadMoreData);
 
-		const newSet: number[] = [loadMoreData, loadMoreData + 1];
+		const newSet: number[] = [loadMoreData, loadMoreData + 1, loadMoreData + 2];
+		if (loadMoreData - 1 >= 1) { 
+			newSet.splice(0, 0, loadMoreData - 1);
+		}
 		setNumber(newSet);
 	}
 	return (
@@ -102,16 +82,15 @@ const Home = () => {
 				{newsCategories.map((value, index) => (
 					<TouchableOpacity
 						key={index}
-						onPress={() => { setSelected(value.category_id) }}
+						onPress={() => { setSelected(value.category_id); }}
+						style={{ borderBottomColor: 'blue', borderBottomWidth: selected === value.category_id ? 2 : 0 }}
 					>
 						<Category
 							key={value.category_id}
 							category_id={value.category_id}
 							category_name={value.category_name}
 						/>
-						{/* need work on selected */}
 					</TouchableOpacity>
-
 				))}
 			</ScrollView>
 			<ScrollView

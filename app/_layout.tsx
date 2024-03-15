@@ -58,7 +58,7 @@ const RootLayout = () => {
                 flex: 1,
             }}>
                 
-                <DrawerLayoutAndroid
+                {/* <DrawerLayoutAndroid
                     ref={drawer}
                     drawerWidth={300}
                     drawerPosition='left'
@@ -73,7 +73,7 @@ const RootLayout = () => {
                     onDrawerClose={() => {
                         // StatusBar.setHidden(false, 'slide');
                     }}
-                >
+                > */}
                 
                     <View style={styles.header_container}>
                         <HeaderBar
@@ -94,7 +94,7 @@ const RootLayout = () => {
                     <View style={styles.footer_container}>
                         <FooterBar />
                         </View>
-                    </DrawerLayoutAndroid>
+                    {/* </DrawerLayoutAndroid> */}
                 </View>
         </>)
                 }
