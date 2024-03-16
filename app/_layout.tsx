@@ -1,6 +1,6 @@
 // For Theming
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { DrawerLayoutAndroid, ScrollView, StatusBar, TouchableOpacity, useColorScheme, StyleSheet } from 'react-native';
+import { DrawerLayoutAndroid, ScrollView, StatusBar, TouchableOpacity, useColorScheme, StyleSheet, Keyboard } from 'react-native';
 import HeaderBar from '@/components/HeaderBar';
 import { Slot } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -25,11 +25,33 @@ const RootLayout = () => {
     const [showAuthScreen, setShowAuthScreen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
     useEffect(() => {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
         })
     }, [])
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardOpen(true);
+            }
+        );
+
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardOpen(false);
+            }
+        );
+
+        return () => {
+            keyboardDidShowListener.remove();
+            keyboardDidHideListener.remove();
+        };
+    }, []);
     return (
         
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -91,11 +113,14 @@ const RootLayout = () => {
 
                     
                     </View>
-                    <View style={styles.footer_container}>
-                        <FooterBar />
-                        </View>
+                    
                     </DrawerLayoutAndroid>
-                </View>
+                        </View>
+                        {!keyboardOpen &&
+                            <View style={styles.footer_container}>
+                                <FooterBar />
+                            </View>
+                        }
         </>)
                 }
         </ThemeProvider>

@@ -16,6 +16,8 @@ import { getArticle } from '@/utils/getArticle'
 import RatingComp from '@/components/RatingComp'
 import { FIREBASE_AUTH } from '@/auth/FirebaseConfig'
 import { saveArticleInfo } from '@/utils/saveArticleInfo'
+import CommentComp from '@/components/CommentComp'
+import CreateCommnet from '@/components/CreateComment'
 
 const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
@@ -167,6 +169,13 @@ const Home = ({ }) => {
                     title={ title }
                 />
             </View>
+            <CreateCommnet
+                title={ title }
+            />
+            <CommentComp
+                title= { title }
+            />
+            
         </ScrollView>
     )
 }
