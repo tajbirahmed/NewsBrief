@@ -7,6 +7,9 @@ import { PageProps } from './NewsCardSlider';
 import { router  } from 'expo-router';
 import { Image } from 'expo-image';
 import RatingComp from './RatingComp';
+import { FIREBASE_AUTH } from '@/auth/FirebaseConfig';
+import { saveArticle } from '@/utils/saveArticle';
+import { saveArticleInfo } from '@/utils/saveArticleInfo';
 
 const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
@@ -23,11 +26,21 @@ const NewsCard = (options: PageProps) => {
             ...options.options,
         }
     ];
-    const handleArticleClick = () => { 
-
+    function wait(duration: number): Promise<void> {
+        return new Promise<void>((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, duration);
+        });
+    }
+    const handleArticleClick = async () => { 
+        await saveArticle(options.options)
         
         router.push({
-            pathname: '/ArticleView/'
+            pathname: '/ArticleView/', 
+            params: {
+                title: options.options.title.toLowerCase()
+            }
         })
     }
     const renderItem = ({ item, index }: { item: Result; index: number }) => {
@@ -88,7 +101,7 @@ const NewsCard = (options: PageProps) => {
                     
                 </View>
                 </View>
-                    <RatingComp />
+                   
             </>
         );
     };

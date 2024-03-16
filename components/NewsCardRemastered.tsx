@@ -117,7 +117,6 @@ const NewsCardRemastered = (options: PageProps) => {
 
                     </View>
                 </View>
-                <RatingComp />
             </>
         );
     };

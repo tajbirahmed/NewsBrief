@@ -1,6 +1,6 @@
 import ArticleHeader from '@/components/ArticleHeader'
-import React, { useState, useRef} from 'react'
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View, useColorScheme, Dimensions } from 'react-native'
+import React, { useState, useRef, useEffect} from 'react'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, useColorScheme, Dimensions, Linking } from 'react-native'
 import { Result } from '@/types/NewsApiTypes'
 import { Image } from 'expo-image'
 import { Paragraph } from 'react-native-paper'
@@ -11,11 +11,16 @@ import { ResizeMode, Video } from 'expo-av';
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { isYouTubeLink } from '@/utils/isYoutube'
 import YoutubePlayer from "react-native-youtube-iframe";
+import { useLocalSearchParams } from 'expo-router'
+import { getArticle } from '@/utils/getArticle'
+import RatingComp from '@/components/RatingComp'
+import { FIREBASE_AUTH } from '@/auth/FirebaseConfig'
+import { saveArticleInfo } from '@/utils/saveArticleInfo'
 
 const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
-const exampleArticle: Result = {
+export const exampleArticle: Result = {
     title: "India taking up issues of pending salaries in Gulf countries",
     link: "https://www.sentinelassam.com/national-news/india-taking-up-issues-of-pending-salaries-in-gulf-countries-576449",
     keywords: [
@@ -47,53 +52,74 @@ const exampleArticle: Result = {
 
 const Home = ({ }) => {
     const colorScheme = useColorScheme();
-    const pubDate = formatDateFromString(exampleArticle.pubDate);
+    const [article, setArticle] = useState<Result | undefined>(undefined);
+    const [pubDate, setPubDate] = useState<string | undefined>(undefined);
     const refVideo = useRef<Video>({} as Video);
     const [inFullscreen, setInFullsreen] = useState(false);
     const [isMute, setIsMute] = useState(true);
-    
+    const { title } = useLocalSearchParams<{
+        title: string
+    }>();
+    useEffect(() => {
+        getArticle(title)
+            .then((e) => {
+                setArticle(e as Result);
+                setPubDate(e?.pubDate);
+                console.log(e);
+                
+            })
+            .catch((e) => { 
+                console.log(e);
+                
+            });
+        if (FIREBASE_AUTH.currentUser)
+            saveArticleInfo(FIREBASE_AUTH.currentUser, title);
+
+    }, []);
     return (
         <ScrollView style={[styles.container, {backgroundColor : colorScheme === 'dark' ? 'black' : 'white'}]}>
             <ArticleHeader />
             <View style={{ width: '100%', height: 200, marginTop: 10,}}>
                 <Image 
                     style={{width: '100%', height: '100%', }}
-                    source={exampleArticle.image_url}
+                    source={article?.image_url}
                     contentFit='cover'
                     placeholder={blurhash}
                     transition={1000}
                 />
             </View>
-            <View style={styles.content_container}>
-                <Text style={{ fontWeight: '500', color: colorScheme === 'dark' ? 'white' : 'black' }}>Posted on {pubDate} by 
-                    <TouchableOpacity style={{}}>
-                        <Text style={{ color: colorScheme === 'dark' ? 'pink' :'blue', fontWeight: '700' }}>
-                            {" " + exampleArticle.creator}
-                        </Text>
-                    </TouchableOpacity>
+            <View style={[styles.content_container, {display: 'flex', flexDirection: 'row'}]}>
+                <Text style={{ fontWeight: '500', color: colorScheme === 'dark' ? 'white' : 'black' }}>Posted {pubDate ? "on " + pubDate : null}  
                 </Text>
+                <TouchableOpacity style={{}} onPress={() => { 
+                    article?.source_url && Linking.openURL(article?.source_url)
+                }}>
+                    <Text style={{ color: colorScheme === 'dark' ? 'pink' : 'blue', fontWeight: '700' }}>
+                        {article?.source_id ? " by " +article.source_id : null }
+                    </Text>
+                </TouchableOpacity>
             </View> 
             <Text style={[styles.content_container, { color: colorScheme === 'dark' ? 'white' : 'black' ,fontSize: 25, fontWeight: 'bold'}]}>
-                {exampleArticle.title}
+                {article?.title}
             </Text>
             <Paragraph dataDetectorType='all' style={[styles.content_container, { fontSize: 15,color: colorScheme === 'dark' ? 'white' : 'black',}]}>
-                {"    " + exampleArticle.description}
+                {"    " + article?.description}
             </Paragraph>
-            {exampleArticle.video_url && isYouTubeLink(exampleArticle.video_url) ? (<View>
+            {article?.video_url && isYouTubeLink(article.video_url) ? (<View>
                 <YoutubePlayer
                     height={300}
                     play={true}
                     videoId={"YQPeKqWWm7M"}
                 />
                 </View>
-            ) : exampleArticle.video_url && !isYouTubeLink(exampleArticle.video_url) ? (
+            ) : article?.video_url && !isYouTubeLink(article.video_url) ? (
                     <View style={ styles.video_container}>
                         <VideoPlayer
                             videoProps={{
                                 shouldPlay: true,
                                 resizeMode: ResizeMode.CONTAIN,
                                 source: {
-                                    uri: exampleArticle.video_url,
+                                    uri: article.video_url,
                                 },
                                 ref: refVideo,
                                 isMuted: !isMute
@@ -126,6 +152,7 @@ const Home = ({ }) => {
                                 width: inFullscreen ? Dimensions.get('window').height : 320,
                             }}
                         />
+
                     </View>
             ) : (
                 (null)
@@ -133,8 +160,13 @@ const Home = ({ }) => {
             
             }
             <Paragraph dataDetectorType='all' style={[styles.content_container, { fontSize: 14, color: colorScheme === 'dark' ? 'white' : 'black', }]}>
-                { exampleArticle.full_description}
+                {article?.full_description}
             </Paragraph>
+            <View style={{width:'auto', height:'auto', marginBottom: 16, marginTop: 5}}>
+                <RatingComp
+                    title={ title }
+                />
+            </View>
         </ScrollView>
     )
 }

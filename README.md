@@ -2,7 +2,7 @@
 ## Completed Features so far
 1. **Submit your ERD that should be drawn in Visio or EDrawMax or LaTex or any other tools that provide the scalable PDF**.[completed]
 2. Realtime commenting options through contacting your own database without refreshing or reloading the whole page as shown in Facebook.
-3. Like and dislike button and count feature as shown on Facebook.
+3. **Like and dislike button and count feature as shown on Facebook.**
 4. **Realtime unique username verification through contacting your own database without refreshing or reloading the whole page.**[completed]
 5. **Email and phone number verification like the Gmail registration page.**[completed]
 6. *Multiple text box and multiple drop down list manipulation*.[multiple-text-box]
@@ -22,4 +22,4 @@
 19. **RESTful APIs / SOAP APIs**[completed,RESTfulApi]
 20. Crystal report.
 
-*completed count = 11*
+*completed count = 12*
