@@ -3,6 +3,7 @@ import { HelpCircle, Settings, Star, User, AreaChart } from "lucide-react-native
 import React, { useRef, useState } from "react";
 import { View, ScrollView, TouchableOpacity, Text, useColorScheme, DrawerLayoutAndroid } from "react-native";
 import RateAppComp from "./RateAppComp";
+import AnalyticsComp from "./AnalyticsComp";
 
 interface DrawerProps {
 	drawer: React.RefObject<DrawerLayoutAndroid> | null,
@@ -11,12 +12,18 @@ interface DrawerProps {
 const SideMenu = ({ drawer }: DrawerProps) => {
 	const colorScheme = useColorScheme();
 	const [openRateApp, setOpenRateApp] = useState(false); 
+	const [openAnalytics, setOpenAnalytics] = useState(false);
 	return (
 		<>
 			{openRateApp ? <RateAppComp
 				openRateApp={openRateApp}
 				setOpenRateApp={setOpenRateApp}
 			/> : null}
+			{openAnalytics ? <AnalyticsComp
+				openAnalytics={openAnalytics}
+				setOpenAnalytics={setOpenAnalytics}
+			/> : null}
+
 			<View style={{
 				flex: 1,
 				paddingTop: 40,
@@ -31,7 +38,7 @@ const SideMenu = ({ drawer }: DrawerProps) => {
 						color: colorScheme === 'dark' ? 'white' : 'black',
 					}}
 				>
-					NewsBrief Dashboard
+					Dashboard
 				</Text>
 				<View
 					style={{
@@ -69,7 +76,7 @@ const SideMenu = ({ drawer }: DrawerProps) => {
 
 					</TouchableOpacity>
 
-					<TouchableOpacity onPress={() => setOpenRateApp(!openRateApp)}>
+					<TouchableOpacity onPress={() => setOpenAnalytics(!openRateApp)}>
 						<View style={{
 							flex: 1,
 							flexDirection: 'row',
