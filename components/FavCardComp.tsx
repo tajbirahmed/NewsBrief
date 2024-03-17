@@ -24,12 +24,13 @@ const FavCardComp = ({ title, source} : PageProps) => {
           }}
           placeholder={blurhash}
           contentFit="cover"
-          transition={1000}
+          transition={500}
+          source={source}
         />
       </View>
       <View style={ styles.content_container}>
         <Text
-          numberOfLines={2}
+          numberOfLines={3}
           ellipsizeMode="tail"
           style={{
             fontSize: 24,
@@ -39,7 +40,7 @@ const FavCardComp = ({ title, source} : PageProps) => {
         >
           {title}
         </Text>
-        <Text
+        {/* <Text
           numberOfLines={3}
           ellipsizeMode="tail"
           style={{
@@ -49,7 +50,7 @@ const FavCardComp = ({ title, source} : PageProps) => {
           }}
         >
           {source}
-        </Text>
+        </Text> */}
         <View style={styles.fav_container}>
           <Text style={{ fontSize: 12, alignSelf: 'center' }}></Text>
           {/* <TouchableOpacity onPress={() => { setFav(!fav)}}>
@@ -89,7 +90,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center', 
-    marginBottom: 10.
+    marginBottom: 10,
+    paddingTop: 12,
   },
   image_container: {
     width: '30%',

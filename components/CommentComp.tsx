@@ -85,7 +85,7 @@ export default CommentComp;
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
+    borderRadius: 5,
     height: 'auto',
     padding: 5,
     marginTop: 1,

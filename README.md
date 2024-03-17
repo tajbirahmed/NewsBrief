@@ -16,10 +16,10 @@
 13. **Uploading images/files and showing them on your site/app.**[completed]
 14. **Datepicker.**[completed]
 15. Embed animations using GSAP.
-16. Application of SASS.
+16. **Application of SASS.**[completed]
 17. **Configure and work with modern workflow and collaboration tools such as Git/GulpJs/GrantJs/Webpack/SVN.**[completed]
 18. Simple application of GraphQL.
 19. **RESTful APIs / SOAP APIs**[completed,RESTfulApi]
-20. Crystal report.
+20. **Crystal report**.
 
-*completed count = 14*
+*completed count = 16*

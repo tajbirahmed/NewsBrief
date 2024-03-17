@@ -26,53 +26,28 @@ const Home = () => {
 	const [firstLoading, setFirstLoading] = useState(false);
 	const [generalLoading, setGeneralLoading] = useState(false);
 	const [category, setCategory] = useState('top');
+	const [hasFetched, setHasFetched] = useState<string[]>([]);
 	
+	async function fetchResult(page: number) {
+		const res = await fetchArticleData({
+			nextPage,
+			setNextPage,
+			category,
+		});
+		console.log(res);
+		
+		setResult([...result, ...res]);
+	}
 
 	
 	useEffect(() => {
-		// loadMoreData === 1 ? setFirstLoading(true) : null;
-		const fetchResult = async () => {
-			try {
-				// const e = await fetchArticleData({
-				// 	nextPage,
-				// 	setNextPage,
-				// 	category,
-				// });
-
-				// setResult((prev) => [...prev, ...e]);
-			} catch (error) {
-				console.error('Error fetching article data: explore.tsx', error);
-			}
-		}
-		setGeneralLoading(true);
-		
-		
-		// pagination
-		let j = 0;
-		if (result.length <= (loadMoreData - 1) * 10 || pageResult.length === 0) {
-			fetchResult()
-				.then(() => { 
-					const thisPageres: Result[] = result.slice((loadMoreData - 1) * 10, (loadMoreData) * 10 - 1);
-					setPageResult(thisPageres);
-				})
-				.catch((e) => { 
-					console.log(e);
-					
-				});
-		}
-		if (result.length <= (loadMoreData - 1) * 10 || pageResult.length === 0) {
-			fetchResult()
-				.then(() => {
-					const thisPageres: Result[] = result.slice((loadMoreData - 1) * 10, (loadMoreData) * 10 - 1);
-					setPageResult(thisPageres);
-					
-				})
-				.catch((e) => {
-					console.log(e);
-
-				});
-		}
-		setGeneralLoading(false);
+		fetchResult(loadMoreData)
+			.then(() => { 
+				setPageResult(result.slice((loadMoreData - 1) * 10, loadMoreData * 10 - 1));
+			})
+			.catch((e) => { 
+				console.log(e);
+			});
 	}, [loadMoreData]); 
 	const updateIndex = (loadMoreData: number) => {
 		console.log(loadMoreData);

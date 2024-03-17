@@ -49,12 +49,15 @@ const CreateCommnet = ({ title }: PageProps) => {
           numberOfLines={3}
           style={{
             marginVertical: 10,
-            backgroundColor: colorScheme === 'dark' ? 'black' : 'white', 
+            backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
             
           }}
           value={comment}
           onChangeText={(com) => setComment(com)}
           contentStyle={{ color: colorScheme === 'dark' ? 'gray' : 'gray' }}
+          outlineStyle={{
+            borderRadius: 20,
+          }}
           
         />
       </View>

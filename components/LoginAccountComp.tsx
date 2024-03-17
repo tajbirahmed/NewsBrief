@@ -6,7 +6,7 @@ import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator, KeyboardAv
 import * as ImagePicker from 'expo-image-picker';
 
 
-import { TextInput } from '@react-native-material/core';
+import { TextInput } from 'react-native-paper';
 interface PageProps {
     createAccount: boolean,
     setCreateAccount: (createAccount: boolean) => void, 
@@ -48,26 +48,26 @@ const LoginAccountComp = ({ createAccount, setCreateAccount, email, setEmail, pa
             <KeyboardAvoidingView behavior='padding'>
                 <View style={[styles.inputView]}>
                     <TextInput
-                        style={[styles.TextInput]}
-                        color={'secondary'}
+                        style={[styles.TextInput, { marginTop: 3, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }]}
+                        // color={'secondary'}
+                        mode='outlined'
                         label="Email"
-                        variant="outlined"
                         onChangeText={(email) => setEmail(email)}
-                        inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}
-                        inputStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
+                        // contentStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}
+                        contentStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
                         value={email}
                         keyboardType="email-address"
                     />
                 </View>
                 <View style={styles.inputView}>
                     <TextInput
-                        style={[styles.TextInput, {}]}
-                        color='secondary'
+                        style={[styles.TextInput, { marginTop: 3, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }]}
+                        // color={'secondary'}
+                        mode='outlined'
                         label={"Password"}
-                        variant="outlined"
                         onChangeText={(password) => setPassword(password)}
-                        inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }}
-                        inputStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
+                        // inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }}
+                        contentStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
                         value={password}
                         secureTextEntry={true}
                         

@@ -1,10 +1,6 @@
 import { DB, FIREBASE_AUTH } from '@/auth/FirebaseConfig';
-import { signIn } from '@/auth/signIn';
 import { signUp } from '@/auth/signUp';
-import { signout } from '@/auth/signout';
-import { createThreeButtonAlert } from '@/utils/createThreeButtonAlert';
 import { pickCameraAsync, pickImageAsync } from '@/utils/pickImageAsync';
-import { Icon } from '@rneui/base';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
@@ -13,7 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 import { Image } from 'expo-image';
-import { TextInput } from '@react-native-material/core';
+import { TextInput } from 'react-native-paper';
 const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
@@ -137,18 +133,18 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
             </View>
             <View style={[styles.inputView,]}>
                 <TextInput
-                    style={[styles.TextInput]}
-                    color={'secondary'}
+                    style={[styles.TextInput, { marginTop: 3, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }]}
+                    // color={'secondary'}
+                    mode='outlined'
                     label={"Username"}
-                    variant="outlined"
                     value={ userName}
                     onChangeText={(user_name) => {
                         setUserName(user_name)
                         if (user_name.length > 2 && !currentNames.includes(user_name)) setGotUniqueName(true);
                         else setGotUniqueName(false);
                     }}
-                    inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}
-                    inputStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
+                    // inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}
+                    contentStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
                 />
             </View>
             {gotUniqueName ? (<Text style={{ color: 'green', paddingLeft: 30, marginBottom: 15, fontWeight: '800' }}>User name is valid</Text>) :
@@ -158,26 +154,27 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
             }
             <View style={styles.inputView}>
                 <TextInput
-                    style={[styles.TextInput]}
-                    color={'secondary'}
+                    style={[styles.TextInput, { marginTop: 3, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }]}
+                    // color={'secondary'}
+                    mode='outlined'
                     label={"Email"}
-                    variant="outlined"
                     onChangeText={(email) => setEmail(email)}
-                    inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}
-                    inputStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
+                    // inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }}
+                    contentStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
                     value={email}
                     keyboardType="email-address"
                 />
             </View>
             <View style={styles.inputView}>
                 <TextInput
-                    style={[styles.TextInput]}
-                    color={'secondary'}
+                    style={[styles.TextInput, { marginTop: 3, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }]}
+                    // color={'secondary'}
+                    mode='outlined'
                     label={"Password"}
-                    variant="outlined"
+                    // variant="outlined"
                     onChangeText={(password) => { setPassword(password); setColorConfirrmPassword(false) }}
-                    inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }}
-                    inputStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
+                    // inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }}
+                    contentStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
                     value={password}
                     secureTextEntry={true}
                 />
@@ -187,13 +184,14 @@ const CreateAccountComp = ({ createAccount, setCreateAccount, email, setEmail, p
                         */}
             <View style={[styles.inputView,]}>
                 <TextInput
-                    style={[styles.TextInput]}
-                    color={'secondary'}
+                    style={[styles.TextInput, { marginTop: 3, backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }]}
+                    // color={'secondary'}
+                    mode='outlined'
                     label={"Confirm"}
-                    variant="outlined"
+                    // variant="outlined"
                     onChangeText={(password) => { setPasswordConfirm(password); setColorConfirrmPassword(true); }}
-                    inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }}
-                    inputStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
+                    // inputContainerStyle={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white', }}
+                    contentStyle={{ color: colorScheme === 'dark' ? 'white' : 'black', fontFamily: 'monospace' }}
                     value={passwordConfirm}
                     secureTextEntry={true}
                 />

@@ -9,10 +9,10 @@ const CommentAnalytics = () => {
   const colVal = colorScheme === 'dark' ? 'white' : 'black';
   return (
     <View style={{
-      width: '95%', height: 320, margin: 12, borderColor: colVal, borderRadius: 30, borderWidth: 0.5,
+      width: '95%', height: 320, margin: 12, borderColor: colVal, borderRadius: 30, 
       display: 'flex', flexDirection: 'column',
     }}>
-      <View style={{ padding: 10, height: '15%', }}>
+      <View style={{ padding: 10, height: '15%', alignSelf: 'center' }}>
         <Text style={{
           color: colorScheme === 'dark' ? 'white' : 'black',
           fontWeight: '700', fontSize: 18,

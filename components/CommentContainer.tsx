@@ -35,7 +35,7 @@ const CommentContainer = ({ imageUrl, comment }: CommentProps) => {
           />
         </View>
       </View>
-      <View style={{ width: '85%', borderColor: colorScheme === 'dark' ? 'white' : 'black', borderWidth: 0.4, borderRadius: 40, }}>
+      <View style={{ width: '85%', borderColor: colorScheme === 'dark' ? 'white' : 'black', borderWidth: 0.4, borderRadius: 20, }}>
         <View style={{ width: '100%', height: 'auto', padding: 10 }}>
         <Text numberOfLines={ !seeMore ? 3 : undefined } style={{
           color: colorScheme === 'dark' ? 'white' : 'black',

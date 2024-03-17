@@ -9,6 +9,8 @@ import { Result } from '@/types/NewsApiTypes'
 import { fetchArticleData } from '@/api/NewsApi'
 import { ScreenHeight } from '@rneui/base'
 import { router } from 'expo-router'
+import { DB } from '@/auth/FirebaseConfig'
+import { collection, getDocs, limit, query } from 'firebase/firestore'
 // 1. correct newsCategory.map
 
 
@@ -48,19 +50,33 @@ const Home = () => {
 	// for news api 
 	const [result, setResult] = useState<Result[]>(exampleNews);
 	const [nextPage, setNextPage] = useState('');
-	const [loadMoreData, setLoadMoreData] = useState(0);
+	const [loadMoreData, setLoadMoreData] = useState(5);
 	const [firstLoading, setFirstLoading] = useState(true); 
 	const [generalLoading, setGeneralLoading] = useState(false); 
 	const category = 'top';
 	useEffect(() => { 
-		loadMoreData === 0 ? setFirstLoading(true) : null;
+		loadMoreData === 5 ? setFirstLoading(true) : null;
 		setGeneralLoading(true);
-		// fetchArticleData({
-		// 	nextPage,
-		// 	setNextPage, 
-		// 	category, 
-		// }).then((e) => setResult((prev) => [...prev, ...e])); 
-		loadMoreData === 0 ? setFirstLoading(false) : null;
+		// get Articles
+		const colRef = collection(DB, "Article"); 
+		const q = query(colRef, limit(loadMoreData))
+		getDocs(q)
+			.then((e) => {
+				const res: Result[] = [];
+				e.forEach((doc) => { 
+					res.push(doc.data() as Result);
+				})
+
+				setResult((prev) => [...res]);
+				console.log(result);
+				
+			})
+			.catch((e) => { 
+				console.log(e);
+			}); 
+
+		
+		loadMoreData === 5 ? setFirstLoading(false) : null;
 		setGeneralLoading(false);
 	}, [loadMoreData])
 	return (
@@ -97,14 +113,14 @@ const Home = () => {
 							
 						
 					) : (
-						result.map((value, i) => (
+						[...exampleNews, ...result].map((value, i) => (
 						<NewsCardSlider
 								key={i}
 								options={value}
 						/>
 					)))}
 					<View style={ styles.load_more}>
-						<TouchableOpacity onPress={() => setLoadMoreData(loadMoreData + 1)}>
+						<TouchableOpacity onPress={() => setLoadMoreData(loadMoreData + 3)}>
 							{generalLoading && !firstLoading ? (
 								<ActivityIndicator size="large" color={colorScheme === 'dark' ? 'white' : 'black'} />
 							): (null)}

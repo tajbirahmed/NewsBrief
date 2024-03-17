@@ -162,7 +162,7 @@ const Home = ({ }) => {
             
             }
             <Paragraph dataDetectorType='all' style={[styles.content_container, { fontSize: 14, color: colorScheme === 'dark' ? 'white' : 'black', }]}>
-                {article?.full_description}
+                { article?.content + "\n"} {article?.full_description}
             </Paragraph>
             <View style={{width:'auto', height:'auto', marginBottom: 16, marginTop: 5}}>
                 <RatingComp
